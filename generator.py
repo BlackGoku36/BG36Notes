@@ -224,11 +224,11 @@ for blog in profile["blogs"]:
         for chapter in series:
             title = chapter["name"]
             file_name = chapter["link"]
-            create_blog(name, file_name, file_name.split('/')[0])
+            create_blog(title, file_name, file_name.split('/')[0])
     except:
         x = 0
 
     if isSeries == False:
         title = blog["name"]
         file_name = blog["link"]
-        create_blog(name, file_name, "")
+        create_blog(title, file_name, "")
