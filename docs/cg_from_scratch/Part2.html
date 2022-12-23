@@ -30,24 +30,23 @@ URJASVI SUTHAR
 <p><a class='home' href=../index.html>HOME</a>
 <button id="btn" onclick="setTheme()">THEME</button></p>
 <hr />
-<h1 id="computer-graphics-from-scratch">Computer Graphics from
-scratch</h1>
+<h1 id="computer-graphics-from-scratch---2">Computer Graphics from
+scratch - 2</h1>
 <h2 id="zig">Zig</h2>
-<p>In the last blog, I said that I wanted to switch from C to Zig, after
-I have done enough of C projects, so that I can finally add
-<code>C</code> to my resume. After all the hard exams were over, I
-thought I get started with Zig with Advent of code. At first zig was bit
-confusing and took some of productivity time trying to find way to do
-simple things such as for range loop, or opening file, or even type
-conversions. It took some days to get comfortable with zig. And then
-when I got comfortable, it was very smooth coding experience, way better
-than writing C. I mean, there wasn’t a time I was like ‘The f is going
-on!’, there were always some directions to go. And then I just couldn’t
-make myself to wait until the time was ‘right’ to re-write the
-Rasterizer code in Zig. And so I did it. No regrets. Zig implementation
-have super simple (feature-wise) obj parser + textures, but doesn’t have
-shadow mapping like C do. Which would be easy to implement, but that not
-the objective at this moment. Objective is to make it fast enough for it
+<p>In the last blog, I said that I wanted to switch from C to Zig after
+I have done enough C projects. After all the hard exams were over, I
+thought I get started with Zig with Advent of Code. At first, Zig was a
+bit confusing to use and took some productivity time trying to find a
+way to do type conversion, handling error, or even opening file. It took
+some days to get comfortable with Zig. And then when I got comfortable,
+it was a very smooth coding experience, way way better than writing C. I
+mean, there wasn’t a time I was like ‘The fook is going on !?’, there
+were always some directions to solution.</p>
+<p>I couldn’t wait until the time was ‘right’ to re-write the code in
+Zig. So, I did it. No regrets. Zig rasterizer has a super simple
+(feature-wise) obj parser and textures. But it doesn’t have shadow
+mapping as C does, which would be easy to implement, but that is not the
+objective at this moment. The objective is to make it fast enough for it
 to be interactive.</p>
 <hr />
 <h2 id="optimizations">Optimizations</h2>
@@ -99,7 +98,7 @@ from this, but I think it was prolly something like</p>
 
 before: ~4 ms
 after: ~1 ms (or at-least small enough so profiler doesn&#39;t notice in new measurement)</code></pre>
-<p>As for frame-buffer, I couldn’t just do memset same way, other wise I
+<p>As for frame-buffer, I couldn’t do memset same way, other wise I
 wouldn’t be able to clear it with color….or could I? It took
 <code>~19ms</code> to do this, which I honestly couldn’t afford. And so,
 I memset the frame buffer too, which would give me a background with
@@ -108,8 +107,8 @@ shade of grey. I think, that’s ok.</p>
 
 before: ~19 ms
 after: ~2.5 ms</code></pre>
-<p>Which is pretty good, considering clearing buffer would itself stop
-me from getting 60fps.</p>
+<p>Which is pretty good, considering clearing buffer would itself would
+stop me from getting 60fps.</p>
 <blockquote>
 <p><strong>Note to reader</strong>: I changed both of buffers type from
 f32 to f16 during above optimization and forgot to note how much it
@@ -125,7 +124,7 @@ performance and note it somewhere.</p>
 <p>Then I tried to optimize the code by doing random things, such making
 some calculation compile-time, only calculating things only one time,
 not making extra allocations on stack, etc. Which I haven’t measure, but
-at best shave off 1 or 2 ms.</p>
+at best it shave off 1 or 2 ms.</p>
 <hr />
 <h3 id="back-face-culling">Back-face culling</h3>
 <p>I forgot to add this basic optimization since I first started with
@@ -133,15 +132,15 @@ this project. Better late than never I guess.</p>
 <p>Here I just took one vertice’s normal and calculated dot product with
 camera direction, instead of using face normal. Calculating face’s
 normal would cost me, and also that using vertice’s normal looked good
-enough to me, so I didn’t bother with face normal.</p>
+enough to me, so I didn’t bother myself with it.</p>
 <pre class="txt"><code>Spot model
 Before back-face culling: 38.34 ms
 After back-face culling: 21.885 ms</code></pre>
 <hr />
 <h3 id="aabb">AABB</h3>
 <p>If you have read my previous blog post, you already know that I
-implemented AABB, but did I do it properly in Zig implementation? Can
-you spot the blunder here?</p>
+implemented AABB, but did I do it properly here? Can you spot the
+blunder?</p>
 <pre class="zig"><code>var x: u32 = aabb.min_x;
 var y: u32 = aabb.min_y;
 while (y &lt;= aabb.max_y) : (y += 1) {
@@ -182,7 +181,9 @@ while (y &lt;= aabb.max_y) : (y += 1) {
 <summary>
 Hint!
 </summary>
+<p>
 Yeah, I want range loop in zig badly
+</p>
 </details>
 <pre class="txt"><code>Spot model
 Before: 21.885 ms
@@ -284,6 +285,7 @@ Spot model (low-poly)
 <source src="../assets/cg_from_scratch_part2_spot.mov" type="video/mp4">
 </video>
 </div>
+<hr />
 <h3 id="until-next-time">Until next time</h3>
 <p>To make sure that I don’t make same mistake of not keeping note of
 improvements and also of not using proper test scene to measure
@@ -296,7 +298,9 @@ shadows back.</p>
 <summary>
 P.S.
 </summary>
+<p>
 Hopefully, this has been interesting read for you :)
+</p>
 </details>
 <script src="../highlight.min.js"></script>
 <script>hljs.highlightAll();</script>

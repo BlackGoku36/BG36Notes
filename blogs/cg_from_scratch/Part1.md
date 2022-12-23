@@ -1,4 +1,4 @@
-# Computer Graphics from scratch
+# Computer Graphics from scratch - 1
 
 > Any sufficiently advanced technology is indistinguishable from magic - Arthur C. Clarke
 

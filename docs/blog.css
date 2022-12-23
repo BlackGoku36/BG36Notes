@@ -131,6 +131,23 @@ footer{
     background-color: var(--theme-accent);
 }
 
+details {
+    color: var(--theme-accent-2);
+    font-size: var(--font-size);
+    background-color: var(--theme-accent);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+details > summary{
+    cursor: pointer;
+    user-select:none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: var(--theme-accent);
+}
+
 pre code.hljs{
 	display:block;
 	overflow-x:auto;

@@ -1,12 +1,15 @@
-# Computer Graphics from scratch
+# Computer Graphics from scratch - 2
 
 ## Zig
 
-In the last blog, I said that I wanted to switch from C to Zig, after I have done enough of C projects, so that I can finally add `C` to my resume. After all the hard exams were over, I thought I get started with Zig with Advent of code. At first zig was bit confusing and took some of productivity time trying to find way to do simple things such as for range loop, or opening file, or even type conversions. It took some days to get comfortable with zig. And then when I got comfortable, it was very smooth coding experience, way better than writing C. I mean, there wasn't a time I was like 'The f is going on!', there were always some directions to go. And then I just couldn't make myself to wait until the time was 'right' to re-write the Rasterizer code in Zig. And so I did it. No regrets. Zig implementation have super simple (feature-wise) obj parser + textures, but doesn't have shadow mapping like C do. Which would be easy to implement, but that not the objective at this moment. Objective is to make it fast enough for it to be interactive.
+In the last blog, I said that I wanted to switch from C to Zig after I have done enough C projects. After all the hard exams were over, I thought I get started with Zig with Advent of Code. At first, Zig was a bit confusing to use and took some productivity time trying to find a way to do type conversion, handling error, or even opening file. It took some days to get comfortable with Zig. And then when I got comfortable, it was a very smooth coding experience, way way better than writing C. I mean, there wasn't a time I was like 'The fook is going on !?', there were always some directions to solution.
+
+I couldn't wait until the time was 'right' to re-write the code in Zig. So, I did it. No regrets. Zig rasterizer has a super simple (feature-wise) obj parser and textures. But it doesn't have shadow mapping as C does, which would be easy to implement, but that is not the objective at this moment. The objective is to make it fast enough for it to be interactive.
 
 ---
 
 ## Optimizations
+
 I wanted to do some optimizations, and see how fast I can make it run before I **have** to touch SIMD or Multi-threading. Turn out, I could do a lot, lot more than I imagined. So lets get to it.
 
 ### Render-target clearing
@@ -59,7 +62,7 @@ before: ~4 ms
 after: ~1 ms (or at-least small enough so profiler doesn't notice in new measurement)
 ```
 
-As for frame-buffer, I couldn't just do memset same way, other wise I wouldn't be able to clear it with color....or could I? It took `~19ms` to do this, which I honestly couldn't afford. And so, I memset the frame buffer too, which would give me a background with shade of grey. I think, that's ok.
+As for frame-buffer, I couldn't do memset same way, other wise I wouldn't be able to clear it with color....or could I? It took `~19ms` to do this, which I honestly couldn't afford. And so, I memset the frame buffer too, which would give me a background with shade of grey. I think, that's ok.
 
 ```txt
 Frame-buffer size: 1280 x 720
@@ -68,7 +71,7 @@ before: ~19 ms
 after: ~2.5 ms
 ```
 
-Which is pretty good, considering clearing buffer would itself stop me from getting 60fps.
+Which is pretty good, considering clearing buffer would itself would stop me from getting 60fps.
 
 > **Note to reader**: I changed both of buffers type from f32 to f16 during above optimization and forgot to note how much it improved. So, 7.6x improvement for frame buffer include the type change.
 
@@ -78,7 +81,7 @@ Which is pretty good, considering clearing buffer would itself stop me from gett
 
 ### Random things
 
-Then I tried to optimize the code by doing random things, such making some calculation compile-time, only calculating things only one time, not making extra allocations on stack, etc. Which I haven't measure, but at best shave off 1 or 2 ms.
+Then I tried to optimize the code by doing random things, such making some calculation compile-time, only calculating things only one time, not making extra allocations on stack, etc. Which I haven't measure, but at best it shave off 1 or 2 ms.
 
 ---
 
@@ -86,7 +89,7 @@ Then I tried to optimize the code by doing random things, such making some calcu
 
 I forgot to add this basic optimization since I first started with this project. Better late than never I guess.
 
-Here I just took one vertice's normal and calculated dot product with camera direction, instead of using face normal. Calculating face's normal would cost me, and also that using vertice's normal looked good enough to me, so I didn't bother with face normal.
+Here I just took one vertice's normal and calculated dot product with camera direction, instead of using face normal. Calculating face's normal would cost me, and also that using vertice's normal looked good enough to me, so I didn't bother myself with it.
 
 ```txt
 Spot model
@@ -98,7 +101,7 @@ After back-face culling: 21.885 ms
 
 ### AABB
 
-If you have read my previous blog post, you already know that I implemented AABB, but did I do it properly in Zig implementation? Can you spot the blunder here?
+If you have read my previous blog post, you already know that I implemented AABB, but did I do it properly here? Can you spot the blunder?
 
 ```zig
 var x: u32 = aabb.min_x;
@@ -141,7 +144,7 @@ while (y <= aabb.max_y) : (y += 1) {
 
 <details>
     <summary>Hint!</summary>
-    Yeah, I want range loop in zig badly
+    <p>Yeah, I want range loop in zig badly</p>
 </details>
 
 ```txt
@@ -256,6 +259,8 @@ Spot model (low-poly)
 </video>
 </div>
 
+---
+
 ### Until next time
 
 To make sure that I don't make same mistake of not keeping note of improvements and also of not using proper test scene to measure improvement. I will create a proper `.obj` parser, and load some relatively heavy scene with materials. And also try to use PBR technique to make it even more heavy to render. And maybe even add shadows back.
@@ -264,5 +269,5 @@ After I am done with that, we will do even more optimizations :)
 
 <details>
     <summary>P.S.</summary>
-    Hopefully, this has been interesting read for you :)
+    <p>Hopefully, this has been interesting read for you :)</p>
 </details>
