@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Part - 2 | Optimizations</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Part - 2 | Optimizations</h1>
+</header>
+<h1>
+URJASVI SUTHAR
+</h1>
+<div class="contents">
+<p><a class='home' href=../index.html>HOME</a>
+<button id="btn" onclick="setTheme()">THEME</button></p>
+<hr />
+<h1 id="computer-graphics-from-scratch">Computer Graphics from
+scratch</h1>
+<h2 id="zig">Zig</h2>
+<p>In the last blog, I said that I wanted to switch from C to Zig, after
+I have done enough of C projects, so that I can finally add
+<code>C</code> to my resume. After all the hard exams were over, I
+thought I get started with Zig with Advent of code. At first zig was bit
+confusing and took some of productivity time trying to find way to do
+simple things such as for range loop, or opening file, or even type
+conversions. It took some days to get comfortable with zig. And then
+when I got comfortable, it was very smooth coding experience, way better
+than writing C. I mean, there wasn’t a time I was like ‘The f is going
+on!’, there were always some directions to go. And then I just couldn’t
+make myself to wait until the time was ‘right’ to re-write the
+Rasterizer code in Zig. And so I did it. No regrets. Zig implementation
+have super simple (feature-wise) obj parser + textures, but doesn’t have
+shadow mapping like C do. Which would be easy to implement, but that not
+the objective at this moment. Objective is to make it fast enough for it
+to be interactive.</p>
+<hr />
+<h2 id="optimizations">Optimizations</h2>
+<p>I wanted to do some optimizations, and see how fast I can make it run
+before I <strong>have</strong> to touch SIMD or Multi-threading. Turn
+out, I could do a lot, lot more than I imagined. So lets get to it.</p>
+<h3 id="render-target-clearing">Render-target clearing</h3>
+<p>I have two render-target, a depth buffer and a frame buffer. If I was
+going to make it interactive, then I would have to clear it after each
+frame. The code was like this, for depth-buffer:</p>
+<pre class="zig"><code>pub fn putPixel(self: *RenderTargetR32, x: u32, y: u32, value: f32) void {
+    self.buffer[y * self.width + x] = value;
+}
+
+pub fn clearColor(self: *RenderTargetR32, value: f32) void {
+     var y: u32 = 0;
+     var x: u32 = 0;
+     while (y &lt; self.height) : (y += 1) {
+         while (x &lt; self.width) : (x += 1) {
+             self.putPixel(x, y, value);
+         }
+         x = 0;
+     }
+}</code></pre>
+<p>and for frame-buffer:</p>
+<pre class="zig"><code>pub fn putPixel(self: *RenderTargetRGBA32, x: u32, y: u32, color: Color) void {
+    self.buffer[y * 4 * self.width + (x * 4 + 0)] = color.r;
+    self.buffer[y * 4 * self.width + (x * 4 + 1)] = color.g;
+    self.buffer[y * 4 * self.width + (x * 4 + 2)] = color.b;
+    self.buffer[y * 4 * self.width + (x * 4 + 3)] = 1.0;
+}
+
+pub fn clearColor(self: *RenderTargetRGBA32, color: Color) void {
+     var y: u32 = 0;
+     var x: u32 = 0;
+     while (y &lt; self.height) : (y += 1) {
+         while (x &lt; self.width) : (x += 1) {
+             self.putPixel(x, y, color);
+         }
+         x = 0;
+     }
+ }</code></pre>
+<p>First thing I notice after profiling using xcode’s instruments, is
+that this two function had high cache misses. Improving the depth-buffer
+was pretty simple, instead of doing all the traversal, all I did was
+memset the buffer. I don’t remember well how much of improvement I got
+from this, but I think it was prolly something like</p>
+<pre class="txt"><code>Depth-buffer size: 1280 x 720
+
+before: ~4 ms
+after: ~1 ms (or at-least small enough so profiler doesn&#39;t notice in new measurement)</code></pre>
+<p>As for frame-buffer, I couldn’t just do memset same way, other wise I
+wouldn’t be able to clear it with color….or could I? It took
+<code>~19ms</code> to do this, which I honestly couldn’t afford. And so,
+I memset the frame buffer too, which would give me a background with
+shade of grey. I think, that’s ok.</p>
+<pre class="txt"><code>Frame-buffer size: 1280 x 720
+
+before: ~19 ms
+after: ~2.5 ms</code></pre>
+<p>Which is pretty good, considering clearing buffer would itself stop
+me from getting 60fps.</p>
+<blockquote>
+<p><strong>Note to reader</strong>: I changed both of buffers type from
+f32 to f16 during above optimization and forgot to note how much it
+improved. So, 7.6x improvement for frame buffer include the type
+change.</p>
+</blockquote>
+<blockquote>
+<p><strong>Note to myself</strong>: Don’t forget to properly measure the
+performance and note it somewhere.</p>
+</blockquote>
+<hr />
+<h3 id="random-things">Random things</h3>
+<p>Then I tried to optimize the code by doing random things, such making
+some calculation compile-time, only calculating things only one time,
+not making extra allocations on stack, etc. Which I haven’t measure, but
+at best shave off 1 or 2 ms.</p>
+<hr />
+<h3 id="back-face-culling">Back-face culling</h3>
+<p>I forgot to add this basic optimization since I first started with
+this project. Better late than never I guess.</p>
+<p>Here I just took one vertice’s normal and calculated dot product with
+camera direction, instead of using face normal. Calculating face’s
+normal would cost me, and also that using vertice’s normal looked good
+enough to me, so I didn’t bother with face normal.</p>
+<pre class="txt"><code>Spot model
+Before back-face culling: 38.34 ms
+After back-face culling: 21.885 ms</code></pre>
+<hr />
+<h3 id="aabb">AABB</h3>
+<p>If you have read my previous blog post, you already know that I
+implemented AABB, but did I do it properly in Zig implementation? Can
+you spot the blunder here?</p>
+<pre class="zig"><code>var x: u32 = aabb.min_x;
+var y: u32 = aabb.min_y;
+while (y &lt;= aabb.max_y) : (y += 1) {
+    while (x &lt;= aabb.max_x) : (x += 1) {
+        const xf32 = @intToFloat(f32, x);
+        const yf32 = @intToFloat(f32, y);
+        var w0: f32 = edgeFunction(a, b, xf32, yf32);
+        var w1: f32 = edgeFunction(b, c, xf32, yf32);
+        var w2: f32 = edgeFunction(c, a, xf32, yf32);
+        if (windingOrderTest(winding_order, w0, w1, w2)) {
+            w0 /= area;
+            w1 /= area;
+            w2 /= area;
+            var z = 1.0 / (w1 * a.z + w2 * b.z + w0 * c.z);
+            if (z &lt; depth_buffer.getPixel(x, y)) {
+                depth_buffer.putPixel(x, y, @floatCast(f16, z));
+                var u = w1 * a_uv.x + w2 * b_uv.x + w0 * c_uv.x;
+                var v = w1 * a_uv.y + w2 * b_uv.y + w0 * c_uv.y;
+                u *= z;
+                v *= z;
+                u = clamp(f32, 0.0, 1.0, u);
+                v = clamp(f32, 0.0, 1.0, v);
+                // WHYYYYYYYYYYYYYY!!!!!!
+                v = 1.0 - v;
+                var tex_u = @floatToInt(u32, u * tex_width_f32);
+                var tex_v = @floatToInt(u32, v * tex_height_f32);
+                var albedo = texture.pixels.rgb24[tex_v * texture.width + tex_u].toColorf32();
+                albedo.r *= pong;
+                albedo.g *= pong;
+                albedo.b *= pong;
+                frame_buffer.putPixel(x, y, Color{ .r = @floatCast(f16, albedo.r), .g = @floatCast(f16, albedo.g), .b = @floatCast(f16, albedo.b) });
+            }
+        }
+    }
+    x = 0;
+ }</code></pre>
+<details>
+<summary>
+Hint!
+</summary>
+Yeah, I want range loop in zig badly
+</details>
+<pre class="txt"><code>Spot model
+Before: 21.885 ms
+After: 4.7 ms</code></pre>
+<p>This is pretty POG (at-least to me), considering I said this in last
+blog.</p>
+<blockquote>
+<p>We will have to implement multi-threading, SIMD and other techniques
+such as frustum culling, to at least make it interactive for a close-up
+low-poly scene.</p>
+</blockquote>
+<hr />
+<h3 id="optimizing-the-edge-function">Optimizing the edge function</h3>
+<p>Improved the edge function from using 2 mults and 5 subs to simple
+addition as described in Scratchapixel’s <a
+href="https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-practical-implementation">Optimizin
+the edge function</a>. We get about <code>1.2x</code> improvement (spot
+model). But for high poly model (dragon model), we only see about
+<code>1.08x</code> improvement. So I don’t know if it really an
+improvement, and if it worth having extra complexity. The problem here
+is that I can’t properly measure improvement because I haven’t written a
+proper <code>.obj</code> parser, and so I can’t load scenes and can only
+do a single object test.</p>
+<blockquote>
+<p><strong>Note to myself</strong>: Write proper .obj parser and load
+scene instead of single object. And also implement costy shading
+features to properly measure optimizations.</p>
+</blockquote>
+<hr />
+<h3 id="mesh-properties-data-structure">Mesh properties data
+structure</h3>
+<p>The original parser I wrote followed data structure of how .obj file
+defined the properties:</p>
+<pre class="zig"><code>pub const Mesh = struct {
+    vertices: std.ArrayList(Vec3),
+    indices: std.ArrayList(u32),
+
+    uvs: std.ArrayList(Vec2),
+    uv_indices: std.ArrayList(u32),
+
+    normals: std.ArrayList(Vec3),
+    normal_indices: std.ArrayList(u32),
+    // ....
+};</code></pre>
+<p>So you would have to access like:</p>
+<pre class="zig"><code>var i: u32 = 0;
+while (i &lt; mesh.indices.items.len) : (i += 3) {
+    var index1 = mesh.indices.items[i];
+    var index2 = mesh.indices.items[i + 1];
+    var index3 = mesh.indices.items[i + 2];
+
+    var vert1 = mesh.vertices.items[index1];
+    var vert2 = mesh.vertices.items[index2];
+    var vert3 = mesh.vertices.items[index3];
+
+    var uv_1 = mesh.uvs.items[mesh.uv_indices.items[i + 0]];
+    var uv_2 = mesh.uvs.items[mesh.uv_indices.items[i + 1]];
+    var uv_3 = mesh.uvs.items[mesh.uv_indices.items[i + 2]];
+}</code></pre>
+<p>Which is pretty slow, as you have to do 2 array access to get to the
+element. Also because cache misses will be lot more likely. So I turned
+it into SOA (Structure-of-Array) just after parsing is done.</p>
+<pre class="zig"><code>pub const Mesh = struct {
+    vertices: std.ArrayList(Vec3),
+    uvs: std.ArrayList(Vec2),
+    normals: std.ArrayList(Vec3),
+    indices: usize,
+    // ....
+};</code></pre>
+<pre class="zig"><code>var i: u32 = 0;
+while (i &lt; mesh.indices) : (i += 3) {
+    var vert1 = mesh.vertices.items[i];
+    var vert2 = mesh.vertices.items[i + 1];
+    var vert3 = mesh.vertices.items[i + 2];
+
+    var uv_1 = mesh.uvs.items[i];
+    var uv_2 = mesh.uvs.items[i + 1];
+    var uv_3 = mesh.uvs.items[i + 2];
+}</code></pre>
+<p>I even tried doing AOS and AOSOA, result is:</p>
+<pre class="txt"><code>Dragon model (high-poly)
+- before: 64.965 ms
+- after (SOA): 56.9 ms
+- after (AOS): 59.585 ms
+- after (AOSOA): 58.17 ms
+
+Spot model (low-poly)
+- before: 7.515 ms
+- after (SOA): 7.32 ms
+- after (AOS): -
+- after (AOSOA): 7.5 ms</code></pre>
+<hr />
+<h3 id="until-next-time">Until next time</h3>
+<p>To make sure that I don’t make same mistake of not keeping note of
+improvements and also of not using proper test scene to measure
+improvement. I will create a proper <code>.obj</code> parser, and load
+some relatively heavy scene with materials. And also try to use PBR
+technique to make it even more heavy to render. And maybe even add
+shadows back.</p>
+<p>After I am done with that, we will do even more optimizations :)</p>
+<details>
+<summary>
+P.S.
+</summary>
+Hopefully, this has been interesting read for you :)
+</details>
+<script src="../highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>const stylesheet = document.documentElement.style;
+const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+
+if(!localStorage.getItem("theme")){
+    localStorage.setItem("theme", "system");
+}
+
+if(localStorage.getItem("theme") == "system") setSystemTheme();
+else if(localStorage.getItem("theme") == "light") setLightTheme();
+else if(localStorage.getItem("theme") == "dark") setDarkTheme();
+
+setButtonText();
+
+function setSystemTheme(){
+    if(darkThemeMq.matches){
+        setDarkTheme();
+    }else{
+        setLightTheme();
+    }
+    setButtonText();
+}
+
+function setDarkTheme(){
+    const darkBg = getComputedStyle(document.documentElement).getPropertyValue("--dark-bg");
+    const darkAccent = getComputedStyle(document.documentElement).getPropertyValue("--dark-accent");
+    const darkAccent2 = getComputedStyle(document.documentElement).getPropertyValue("--dark-accent-2");
+    const darkAccent3 = getComputedStyle(document.documentElement).getPropertyValue("--dark-accent-3");
+    stylesheet.setProperty("--theme-bg", darkBg);
+    stylesheet.setProperty("--theme-accent", darkAccent);
+    stylesheet.setProperty("--theme-accent-2", darkAccent2);
+    stylesheet.setProperty("--theme-accent-3", darkAccent3);
+    setButtonText();
+}
+
+function setLightTheme(){
+    const lightBg = getComputedStyle(document.documentElement).getPropertyValue("--light-bg");
+    const lightAccent = getComputedStyle(document.documentElement).getPropertyValue("--light-accent");
+    const lightAccent2 = getComputedStyle(document.documentElement).getPropertyValue("--light-accent-2");
+    const lightAccent3 = getComputedStyle(document.documentElement).getPropertyValue("--light-accent-3");
+    stylesheet.setProperty("--theme-bg", lightBg);
+    stylesheet.setProperty("--theme-accent", lightAccent);
+    stylesheet.setProperty("--theme-accent-2", lightAccent2);
+    stylesheet.setProperty("--theme-accent-3", lightAccent3);
+    setButtonText();
+}
+
+function setButtonText(){
+    const theme = localStorage.getItem("theme");
+    var text = theme.toUpperCase() +' THEME';
+    document.getElementById("btn").innerHTML = text;
+}
+
+darkThemeMq.addListener(e => {
+    if(localStorage.getItem("theme") == "system"){
+        if (e.matches) {
+            setDarkTheme();
+        } else {
+            setLightTheme();
+        }
+    }
+});
+
+function setTheme(){
+    if(localStorage.getItem("theme") == "system"){
+        localStorage.setItem("theme", "light");
+        setLightTheme();
+    }else if(localStorage.getItem("theme") == "light"){
+        localStorage.setItem("theme", "dark");
+        setDarkTheme();
+    }else{
+        localStorage.setItem("theme", "system");
+        setSystemTheme();
+    }
+}</script>
+</div>
+<footer>
+© 2021-2022 Urjasvi Suthar
+</footer>
+</body>
+</html>

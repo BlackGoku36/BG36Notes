@@ -11,8 +11,12 @@
             "name": "Computer Graphics from Scratch",
             "series": [
                 {
-                    "name": "Part - 1",
+                    "name": "Part - 1 | Basics Implementation",
                     "link": "cg_from_scratch/Part1.md"
+                },
+                {
+                    "name": "Part - 2 | Optimizations",
+                    "link": "cg_from_scratch/Part2.md"
                 }
             ]
         },
