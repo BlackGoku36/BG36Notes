@@ -244,6 +244,18 @@ Spot model (low-poly)
 
 ---
 
+### Results
+
+<div display: flex>
+<video width="45%" controls>
+  <source src="../assets/cg_from_scratch_part2_dragon.mov" type="video/mp4">
+</video>
+
+<video width="45%" controls>
+  <source src="../assets/cg_from_scratch_part2_spot.mov" type="video/mp4">
+</video>
+</div>
+
 ### Until next time
 
 To make sure that I don't make same mistake of not keeping note of improvements and also of not using proper test scene to measure improvement. I will create a proper `.obj` parser, and load some relatively heavy scene with materials. And also try to use PBR technique to make it even more heavy to render. And maybe even add shadows back.
