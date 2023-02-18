@@ -37,7 +37,29 @@ You can think of cache as an N-Byte 3D array, though the 2D array is laid linear
 
 ### Fully associative cache
 
-TBD
+Here the memory of cache's block size is placed anywhere in the cache (This means there 0 set). For example, if you have memory like:
+```txt
+{ a, b, c, d,  e, f, g, h,  i, j, k, l,  m, n, o, p,  q, r, s, t,  u, v, w, x }
+```
+1. Each alphabet represent 1-byte, so there are 24 bytes.
+
+If you have fully associative cache memory with 4 cache block and of size 4-bytes, then your cache memory might be like:
+```txt
+{
+    a, b, c, d,
+    i, j, k, l,
+    , , , ,     // Empty cache block
+    u, v, w, x
+}
+```
+
+That is, the cache block is placed randomly (well not randomly, there are different types of policies for eviction and replacement for these cache block).
+
+- **Pro**:
+    1. You can fit large amount of data from anywhere in memory into cache.
+
+- **Con**:
+    1. You will have to linearly search the whole cache memory to find the desired block.
 
 ### Direct-mapped cache
 

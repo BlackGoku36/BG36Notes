@@ -69,7 +69,35 @@ sets.</li>
 <li>Cache consists of Y sets * X bytes.</li>
 </ol>
 <h3 id="fully-associative-cache">Fully associative cache</h3>
-<p>TBD</p>
+<p>Here the memory of cache’s block size is placed anywhere in the cache
+(This means there 0 set). For example, if you have memory like:</p>
+<pre class="txt"><code>{ a, b, c, d,  e, f, g, h,  i, j, k, l,  m, n, o, p,  q, r, s, t,  u, v, w, x }</code></pre>
+<ol type="1">
+<li>Each alphabet represent 1-byte, so there are 24 bytes.</li>
+</ol>
+<p>If you have fully associative cache memory with 4 cache block and of
+size 4-bytes, then your cache memory might be like:</p>
+<pre class="txt"><code>{
+    a, b, c, d,
+    i, j, k, l,
+    , , , ,     // Empty cache block
+    u, v, w, x
+}</code></pre>
+<p>That is, the cache block is placed randomly (well not randomly, there
+are different types of policies for eviction and replacement for these
+cache block).</p>
+<ul>
+<li><strong>Pro</strong>:
+<ol type="1">
+<li>You can fit large amount of data from anywhere in memory into
+cache.</li>
+</ol></li>
+<li><strong>Con</strong>:
+<ol type="1">
+<li>You will have to linearly search the whole cache memory to find the
+desired block.</li>
+</ol></li>
+</ul>
 <h3 id="direct-mapped-cache">Direct-mapped cache</h3>
 <p>TBD</p>
 <h3 id="set-associative-cache">Set-associative cache</h3>
