@@ -267,6 +267,8 @@ To make sure that I don't make same mistake of not keeping note of improvements 
 
 After I am done with that, we will do even more optimizations :)
 
+The code is here: https://github.com/BlackGoku36/ZigCPURasterizer
+
 <details>
     <summary>P.S.</summary>
     <p>Hopefully, this has been interesting read for you :)</p>
