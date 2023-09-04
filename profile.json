@@ -1,6 +1,6 @@
 {
     "name": "URJASVI SUTHAR",
-    "description": "Hi! My name is Urjasvi Suthar (aka. BlackGoku36). I am a 2nd-year undergraduate student at IIIT Sri City, India. My main interest is in Computer Graphics and System Software. <br> <br> Toolbox: C Lang, Python, LLDB. <br> <br> I will try my best to write more blogs.",
+    "description": "Hi! My name is Urjasvi Suthar (aka. BlackGoku36). I am a 3rd-year undergraduate student at IIIT Sri City, India. My main interest is in Computer Graphics and System Software. <br> <br> Toolbox: Zig, C Lang, Python, LLDB. <br> <br> I will try my best to write more blogs.",
     "profile_picture": "pfp.png",
     "blogs": [
         {
@@ -23,11 +23,6 @@
         {
             "name": "Cache Memory",
             "link": "CacheMemory.md",
-            "disabled": true
-        },
-        {
-            "name": "Career in Computer Science",
-            "link": "Career.md",
             "disabled": true
         }
     ],
