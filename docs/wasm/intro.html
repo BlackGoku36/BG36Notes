@@ -39,6 +39,72 @@ URJASVI SUTHAR
 <button id='btn' onclick='setTheme()'>THEME</button></p>
 <hr />
 <h1 id="introduction-to-wasm">Introduction to WASM</h1>
+<p>Table of contents:</p>
+<ul>
+<li>Introduction (this)</li>
+<li>Binary Format</li>
+<li>Emscripten (emcc)</li>
+</ul>
+<p>In short, WebAssembly is a binary instruction format for a
+stack-based VM. To understand it better, we will talk a little bit more
+about what a <code>Binary Instruction Format</code> means and what a
+<code>Stack-based VM</code> means.</p>
+<h3 id="binary-instruction-format">Binary Instruction Format</h3>
+<p>Just like humans use languages to understand and communicate with
+each other, computer need something similar. Human languages consist of
+atomic symbols such as alphabets, just as machine language consist of 0s
+and 1s. These symbols randomly stringed together, themselves doesn’t
+means anything. Just like <code>kdjhsk</code> doesn’t means anything,
+random 0s and 1s <code>01010101</code> doesn’t means anything. Language
+defines rules to these symbols and strings to give a meaning, like
+<code>hello</code> means greeting in <code>English</code> languge. Zeros
+and Ones can be given meaning with language designed particularly for a
+machine.</p>
+<p>For sake of understanding, we can design our own machine language.
+Let say, our language is based on bit string of length 8-bit (called as
+byte), which is analogous to a word in english language (although a word
+can be of arbitarary length). To understand a sentence, we say that
+string of bytes, start with a verb and than, if any, we have noun. For
+example, a byte string <code>"10100000 00100101"</code>,
+<code>10100000</code> is a verb and <code>00100101</code> is a noun.
+Similarly, <code>"10010011 00100100 00010000 10000001"</code> is verb,
+noun, verb and noun respectively. Then we can go an add rules for what a
+verb and what a noun is. For example,</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Byte</th>
+<th style="text-align: left;">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">00______</td>
+<td style="text-align: left;">Walk</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">01______</td>
+<td style="text-align: left;">Run</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10______</td>
+<td style="text-align: left;">Sprint</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">11______</td>
+<td style="text-align: left;">Stop</td>
+</tr>
+</tbody>
+</table>
+<p>Then we can define next 2-bits for vocal cords, and then next-next
+2-bits and so on and on. For verb, it could means human names somehow
+mapped to a byte. This will effectively give us a way to command any
+(actually upto 2^8 = 255 here) humans in our machine languge.</p>
+<p>There already exist machine language for computer, these language are
+sometimes called <code>Instruction Set Architecture (ISA)</code>, such
+as <code>x86_64</code>, <code>RISC-V</code>, <code>ARM64</code>, etc.
+WebAssembly is another one of these language, but for a made-up
+hardware.</p>
 <script src="../highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 <script>const stylesheet = document.documentElement.style;

@@ -16,7 +16,7 @@ cg_series.blogs.append(slate.Blog("Part - 2 | Optimizations", "cg_from_scratch/P
 site.blogs.append(cg_series)
 
 wasm_series = slate.Series("WebAssembly (WASM)", [])
-wasm_series.blogs.append(slate.Blog("Introduction", "wasm/intro.md", True))
+wasm_series.blogs.append(slate.Blog("Introduction", "wasm/intro.md", False))
 site.blogs.append(wasm_series)
 
 site.blogs.append(slate.Blog("Cache Memory", "CacheMemory.md", True))
