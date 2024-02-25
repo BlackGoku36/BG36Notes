@@ -38,10 +38,12 @@ URJASVI SUTHAR
 <p><a class='home' href=../index.html>HOME</a>
 <button id='btn' onclick='setTheme()'>THEME</button></p>
 <hr />
-<h1 id="introduction-to-wasm">Introduction to WASM</h1>
+<h1 id="introduction-to-webassembly-wasm">Introduction to WebAssembly
+(WASM)</h1>
 <p>Table of contents:</p>
 <ul>
 <li>Introduction (this)</li>
+<li>WASM vs JS</li>
 <li>Binary Format</li>
 <li>Emscripten (emcc)</li>
 </ul>
@@ -49,7 +51,38 @@ URJASVI SUTHAR
 stack-based VM. To understand it better, we will talk a little bit more
 about what a <code>Binary Instruction Format</code> means and what a
 <code>Stack-based VM</code> means.</p>
-<h3 id="binary-instruction-format">Binary Instruction Format</h3>
+<p>It was design for improving performance of web application and allow
+it to do computational expensive tasks that was previously not possible
+with JS. It is portable format, which can work in enviroment outside of
+browsers such as desktop/mobile apps, client/server application, IoTs,
+and even embedded devices.</p>
+<p>Before WASM, <a
+href="https://en.wikipedia.org/wiki/Asm.js">asm.js</a> existed that
+compiled statically-typed manual memory management language such as C to
+optimized version of JS. It used source-to-source compiler that targeted
+specific subset of JS. This subsets consisted of static types and
+virtually no <a
+href="https://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29">garbage
+collection</a>, which improved performanc by magnitudes. It also
+optimized size by employing techniques like <a
+href="https://en.wikipedia.org/wiki/Dead-code_elimination">dead-code
+elimination</a>, and also remove unnecessary whitespace, newlines, etc
+and shortening long identifier to few chars identifiers.</p>
+<details>
+<summary>
+What is Garbage Collection?
+</summary>
+<p>
+Basically garbage means allocated memory that isn’t used anymore, and
+collection means de-allocating this not-used-anymore memory.<br />
+In manual memory management languages, you allocate and deallocate
+memory by yourself. But in Garbage Collected language, the language do
+it for you. How GC does it and when depends upon implemented technique,
+you wouldn’t want GC to do it work at inconvient time in inconvient
+ways.
+</p>
+</details>
+<h2 id="binary-instruction-format">Binary Instruction Format</h2>
 <p>Just like humans use languages to understand and communicate with
 each other, computer need something similar. Human languages consist of
 atomic symbols such as alphabets, just as machine language consist of 0s
@@ -105,7 +138,57 @@ sometimes called <code>Instruction Set Architecture (ISA)</code>, such
 as <code>x86_64</code>, <code>RISC-V</code>, <code>ARM64</code>, etc.
 WebAssembly is another one of these language, but for a made-up
 hardware.</p>
-<p>!WIP!</p>
+<h2 id="stack-based-vm">Stack-based VM</h2>
+<p>Virtual Machine (VM) as the name implies, a machine that is virtual
+and not a physical hardware. VMs are software that emulates a specific
+machine, typically they emulates ISAs. These works for decoding the
+binary files (executables), then it try to make sense of the structure,
+and then execute appropriate similar instruction that are available
+natively.</p>
+<p>Stack-based means that it uses stack as storage for immediate
+temporary values instead of registers like ISAs. For example, you want
+to execute following line of code:</p>
+<pre class="c"><code>printf(1 + 2);</code></pre>
+<p>The order of instructions and it execution look something like
+this:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Instruction</th>
+<th style="text-align: left;">Operation</th>
+<th>Stack</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td style="text-align: left;">push 1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td style="text-align: left;">push 2</td>
+<td>1, 2</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td style="text-align: left;">add</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td style="text-align: left;">call printf</td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="binary-instruction-format-for-stack-based-vm">Binary Instruction
+Format for Stack-based VM</h2>
+<p>So, WebAssembly is just a portable specification developed for a
+machine that uses stack, which main goal is to be used in Web. But since
+it is just a format, it can be used anywhere as long as VM is compilant
+and provides interface for the enviroment (just like how ISAs interface
+with OS enviroment through function calls and other stuffs).</p>
 <script src="../highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 <script>const stylesheet = document.documentElement.style;
