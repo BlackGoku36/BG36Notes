@@ -2,10 +2,12 @@
 
 Table of contents:
 
-- Introduction (this)
-- WASM vs JS
-- Binary Format
-- Emscripten (emcc)
+- Introduction
+- [WASM vs JS](wasm_vs_js.html)
+- [Binary Format](binary_format.html)
+- [Emscripten](emscripten.html)
+
+---
 
 In short, WebAssembly is a binary instruction format for a stack-based VM. To understand it better, we will talk a little bit more about what a `Binary Instruction Format` means and what a `Stack-based VM` means.
 
@@ -20,6 +22,8 @@ Before WASM, [asm.js](https://en.wikipedia.org/wiki/Asm.js) existed that compile
 </details>
 
 ## Binary Instruction Format
+
+---
 
 Just like humans use languages to understand and communicate with each other, computer need something similar. Human languages consist of atomic symbols such as alphabets, just as machine language consist of 0s and 1s. These symbols randomly stringed together, themselves doesn't means anything. Just like `kdjhsk` doesn't means anything, random 0s and 1s `01010101` doesn't means anything. Language defines rules for these symbols and strings to give a meaning, like `hello` means greeting in `English` languge. Zeros and Ones can be given meaning with language designed particularly for a machine.
 
@@ -39,6 +43,8 @@ There already exist machine language for computer, these language are sometimes 
 
 ## Stack-based VM
 
+---
+
 Virtual Machine (VM) as the name implies, a machine that is virtual and not a physical hardware. VMs are software that emulates a specific machine, typically they emulates ISAs. These works for decoding the binary files (executables), then it try to make sense of the structure, and then execute appropriate similar instruction that are available natively.
 
 Stack-based means that it uses stack as storage for immediate temporary values instead of registers like ISAs. For example, you want to execute following line of code:
@@ -56,5 +62,7 @@ Instruction  Operation   Stack
 -----------  ----------- -----
 
 ## Binary Instruction Format for Stack-based VM
+
+---
 
 So, WebAssembly is just a portable specification developed for a machine that uses stack, which main goal is to be used in Web. But since it is just a format, it can be used anywhere as long as VM is compilant and provides interface for the enviroment (just like how ISAs interface with OS enviroment through function calls and other stuffs).

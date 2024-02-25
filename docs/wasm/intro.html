@@ -42,11 +42,12 @@ URJASVI SUTHAR
 (WASM)</h1>
 <p>Table of contents:</p>
 <ul>
-<li>Introduction (this)</li>
-<li>WASM vs JS</li>
-<li>Binary Format</li>
-<li>Emscripten (emcc)</li>
+<li>Introduction</li>
+<li><a href="wasm_vs_js.html">WASM vs JS</a></li>
+<li><a href="binary_format.html">Binary Format</a></li>
+<li><a href="emscripten.html">Emscripten</a></li>
 </ul>
+<hr />
 <p>In short, WebAssembly is a binary instruction format for a
 stack-based VM. To understand it better, we will talk a little bit more
 about what a <code>Binary Instruction Format</code> means and what a
@@ -83,6 +84,7 @@ ways.
 </p>
 </details>
 <h2 id="binary-instruction-format">Binary Instruction Format</h2>
+<hr />
 <p>Just like humans use languages to understand and communicate with
 each other, computer need something similar. Human languages consist of
 atomic symbols such as alphabets, just as machine language consist of 0s
@@ -139,6 +141,7 @@ as <code>x86_64</code>, <code>RISC-V</code>, <code>ARM64</code>, etc.
 WebAssembly is another one of these language, but for a made-up
 hardware.</p>
 <h2 id="stack-based-vm">Stack-based VM</h2>
+<hr />
 <p>Virtual Machine (VM) as the name implies, a machine that is virtual
 and not a physical hardware. VMs are software that emulates a specific
 machine, typically they emulates ISAs. These works for decoding the
@@ -184,6 +187,7 @@ this:</p>
 </table>
 <h2 id="binary-instruction-format-for-stack-based-vm">Binary Instruction
 Format for Stack-based VM</h2>
+<hr />
 <p>So, WebAssembly is just a portable specification developed for a
 machine that uses stack, which main goal is to be used in Web. But since
 it is just a format, it can be used anywhere as long as VM is compilant
