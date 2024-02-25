@@ -1,9 +1,9 @@
-:root {  
+:root {
 	--dark-bg: rgb(29, 30, 32);
 	--dark-accent: rgb(48, 48, 53);
 	--dark-accent-2: rgba(205, 205, 205, 0.9);
 	--dark-accent-3: rgba(131, 116, 231, 0.904);
-	
+
 	--light-bg: rgb(255, 255, 255);
 	--light-accent: rgba(233, 233, 233, 0.8);
 	--light-accent-2: rgb(41, 41, 41);
@@ -14,8 +14,8 @@
 	--theme-accent-2: rgb(41, 41, 41);
 	--theme-accent-3: rgb(98, 79, 223);
 
-	--font-size: 18px;
-	--font-size-code: 17px;
+	--font-size: 19px;
+	--font-size-code: 18px;
 }
 
 #title-block-header{
@@ -50,6 +50,7 @@ body{
     display: flex;
     flex-direction: column;
 	background-color: var(--theme-bg);
+	line-height: 1.4;
 }
 
 table{
@@ -182,7 +183,7 @@ code.hljs{
 .hljs-link{
 	text-decoration:underline;
 }
- 
+
 button {
 	font-weight: bold;
 	display: inline-block;
