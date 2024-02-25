@@ -25,3 +25,5 @@ Byte     Meaning
 Then we can define next 2-bits for vocal cords, and then next-next 2-bits and so on and on. For verb, it could means human names somehow mapped to a byte. This will effectively give us a way to command any (actually upto 2^8 = 255 here) humans in our machine languge.
 
 There already exist machine language for computer, these language are sometimes called `Instruction Set Architecture (ISA)`, such as `x86_64`, `RISC-V`, `ARM64`, etc. WebAssembly is another one of these language, but for a made-up hardware.
+
+!WIP!
