@@ -193,6 +193,27 @@ machine that uses stack, which main goal is to be used in Web. But since
 it is just a format, it can be used anywhere as long as VM is compilant
 and provides interface for the enviroment (just like how ISAs interface
 with OS enviroment through function calls and other stuffs).</p>
+<h2 id="use-cases">Use Cases</h2>
+<hr />
+<ul>
+<li><strong>Computational expensive tasks</strong>: Application that
+have to do lot of numerical computations such as graphics, cryptography,
+simulations, etc.</li>
+<li><strong>Security</strong>: WASM is much more secure than JS by
+reducing attack surface area. WASM is much more obscure than JS, thus
+making it harder for attacker to just look at code. Its provides better
+memory safety and preventing common memory bugs like buffer overflow.
+Entire code is sandboxed, thus isolating it from rest from system,
+making it harder for attacker to access sensitive data and perform
+illegal operations.</li>
+<li><strong>Tons of Libraries</strong>: Since any system programming
+language can be compile to WASM, vast amount of libraries written in C
+and CPP is suddenly available on web.</li>
+<li><strong>Outside of web</strong>: Since WASM is a VM, it is
+completely possible to use it as mobile/desktop apps, also can be run on
+servers or even IoT devices. Basically you can, write once and run
+anywhere.</li>
+</ul>
 <script src="../highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 <script>const stylesheet = document.documentElement.style;

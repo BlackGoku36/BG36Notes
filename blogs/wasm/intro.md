@@ -66,3 +66,12 @@ Instruction  Operation   Stack
 ---
 
 So, WebAssembly is just a portable specification developed for a machine that uses stack, which main goal is to be used in Web. But since it is just a format, it can be used anywhere as long as VM is compilant and provides interface for the enviroment (just like how ISAs interface with OS enviroment through function calls and other stuffs).
+
+## Use Cases
+
+---
+
+- **Computational expensive tasks**: Application that have to do lot of numerical computations such as graphics, cryptography, simulations, etc.
+- **Security**: WASM is much more secure than JS by reducing attack surface area. WASM is much more obscure than JS, thus making it harder for attacker to just look at code. Its provides better memory safety and preventing common memory bugs like buffer overflow. Entire code is sandboxed, thus isolating it from rest from system, making it harder for attacker to access sensitive data and perform illegal operations.
+- **Tons of Libraries**: Since any system programming language can be compile to WASM, vast amount of libraries written in C and CPP is suddenly available on web.
+- **Outside of web**: Since WASM is a VM, it is completely possible to use it as mobile/desktop apps, also can be run on servers or even IoT devices. Basically you can, write once and run anywhere.
