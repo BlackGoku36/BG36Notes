@@ -28,6 +28,6 @@ site.contacts.append(slate.Contact.github("https://github.com/BlackGoku36"))
 site.contacts.append(slate.Contact.twitter("https://twitter.com/UrjasviS"))
 site.contacts.append(slate.Contact.mastodon("https://mastodon.gamedev.place/@UrjasviSuthar"))
 site.contacts.append(slate.Contact.mail("urjasvisuthar@gmail.com"))
-site.copyright = "© 2021-2023 Urjasvi Suthar"
+site.copyright = "© 2021-2024 Urjasvi Suthar"
 site.analytics_html = "<script async src=\"//static.getclicky.com/101392041.js\"></script>"
 slate.generate_site(site)
