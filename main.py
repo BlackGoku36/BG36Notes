@@ -17,7 +17,7 @@ site.blogs.append(cg_series)
 
 wasm_series = slate.Series("WebAssembly (WASM)", [])
 wasm_series.blogs.append(slate.Blog("Introduction", "wasm/intro.md", False))
-wasm_series.blogs.append(slate.Blog("WebAssembly vs Javascript", "wasm/wasm_vs_js.md", True))
+wasm_series.blogs.append(slate.Blog("WebAssembly vs Javascript", "wasm/wasm_vs_js.md", False))
 wasm_series.blogs.append(slate.Blog("Binary format (.wasm)", "wasm/binary_format.md", True))
 wasm_series.blogs.append(slate.Blog("Emscripten (emcc)", "wasm/emscripten.md", True))
 site.blogs.append(wasm_series)
