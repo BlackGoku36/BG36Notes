@@ -1,7 +1,7 @@
 :root {
 	--dark-bg: rgb(29, 30, 32);
 	--dark-accent: rgb(48, 48, 53);
-	--dark-accent-2: rgba(205, 205, 205, 0.9);
+	--dark-accent-2: rgba(215, 215, 215, 0.9);
 	--dark-accent-3: rgba(131, 116, 231, 0.904);
 
 	--light-bg: rgb(255, 255, 255);
@@ -102,7 +102,7 @@ h1,h2,h3,h4,h5{
 
 p{
 	font-size: var(--font-size);
-	line-height: 1.3;
+	line-height: 1.5;
 	color: var(--theme-accent-2);
 }
 

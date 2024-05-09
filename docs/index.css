@@ -1,9 +1,9 @@
-:root {  
+:root {
 	--dark-bg: rgb(29, 30, 32);
 	--dark-accent: rgb(48, 48, 53);
-	--dark-accent-2: rgba(205, 205, 205, 0.9);
+	--dark-accent-2: rgba(215, 215, 215, 0.9);
 	--dark-accent-3: rgba(131, 116, 231, 0.904);
-	
+
 	--light-bg: rgb(255, 255, 255);
 	--light-accent: rgba(233, 233, 233, 0.8);
 	--light-accent-2: rgb(41, 41, 41);
@@ -14,9 +14,9 @@
 	--theme-accent-2: rgb(41, 41, 41);
 	--theme-accent-3: rgb(98, 79, 223);
 
-	--font-size: 18px;
-	--font-size-2: 19px;
-	--font-size-code: 17px;
+	--font-size: 19px;
+	--font-size-2: 20px;
+	--font-size-code: 18px;
 }
 
 html {
@@ -66,7 +66,7 @@ h1,h2,h3,h4,h5{
 
 p{
     font-size: var(--font-size);
-    line-height: 1.3;
+    line-height: 1.5;
     color: var(--theme-accent-2);
 }
 
