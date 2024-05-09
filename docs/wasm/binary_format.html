@@ -40,6 +40,153 @@ URJASVI SUTHAR
 <hr />
 <h1 id="webassembly-binary-format">WebAssembly Binary Format</h1>
 <p>! WIP !</p>
+<blockquote>
+<p>All integers used for sizes and indexes in this binary formats are in
+unsigned LEB128 format.</p>
+</blockquote>
+<h2 id="structure">Structure</h2>
+<p>Structure are divided into different sections, each with a specific
+id, and are order-dependent. Each of the sections are optional and can
+be skipped. The module starts with a magic number (0x00, 0x61, 0x73,
+0x6D) (‘/0asm’ string) and a version number (0x01, 0x00, 0x00, 0x00)
+(current version of wasm binary format is 1).</p>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Sections</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Custom</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Type</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Import</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Function</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Table</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Memory</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Global</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Export</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>Start</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>Element</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>Code</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>Data</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>Data count</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sections">Sections</h2>
+<p>Each sections are divided into 3 parts:</p>
+<ul>
+<li>Id of the section - 1 Byte</li>
+<li>Size of content in bytes - unsigned leb128</li>
+<li>Content of sections (dependent of structure of the section)</li>
+</ul>
+<blockquote>
+<p>All of the sections can be skipped. WASM file that only consist of 8
+bytes (0x00, 0x61, 0x73, 0x6D, 0x01, 0x00, 0x00, 0x00) is a valid
+binary.</p>
+</blockquote>
+<blockquote>
+<p>Size of each section other than custom can be skipped. Size can be
+used to skip sections while navigating through a binary. Size of custom
+section are needed to skip the entire section in case implementation
+doesn’t support it.</p>
+</blockquote>
+<blockquote>
+<p>Implementation: Errors in custom sections shouldn’t prevent it from
+parsing other sections.</p>
+</blockquote>
+<h2 id="custom">Custom</h2>
+<p>!WIP!</p>
+<h2 id="type">Type</h2>
+<p>This section is used to define signature of all functions. It
+contains vector of functype. This section look like:</p>
+<ul>
+<li>Id: byte = 1</li>
+<li>Size: unsigned leb128 = size of contents in bytes</li>
+<li>Content: vec(functype) = array of functype elements</li>
+</ul>
+<p>Eg:</p>
+<pre><code>|  Id  | Size |                                Content                                            |
+|      |      | len  |      |    parameter 1     |   result 1  |      | parameter 2 |   result 2  |
+|      |      |      |      | len  | i32  | f32  | len  | f32  |      |     len     | len  | f64  |
+| 0x01 | 0x09 | 0x02 | 0x60 | 0x02 | 0x7F | 0x7D | 0x01 | 0x7D | 0x60 |     0x0     | 0x01 | 0x7C |
+                     |&lt;------------ function sig. 1 ----------&gt;|&lt;--------- function sig. 2 ------&gt;|</code></pre>
+<h3 id="function-type---functype">Function Type - functype</h3>
+<p>Function type defines signature of function and is encoded as:</p>
+<ul>
+<li><code>0x60</code></li>
+<li>parameter: resulttype</li>
+<li>results: resulttype</li>
+</ul>
+<p>Eg:</p>
+<pre><code>|      |      parameter     |    result   |
+|      | len  | i32  | f32  | len  | f32  |
+| 0x60 | 0x02 | 0x7F | 0x7D | 0x01 | 0x7D |</code></pre>
+<p>It defines function type with 2 parameters (i32 and f32) and single
+return/result type of f32</p>
+<h3 id="result-type---resulttype">Result Type - resulttype</h3>
+<ul>
+<li>resulttype: vec(valtype) = array of valtype elements</li>
+</ul>
+<h3 id="value-type---valtype">Value Type - valtype</h3>
+<ul>
+<li>valtype: numtype or vectype or reftype</li>
+</ul>
+<h3 id="number-type---numtype">Number Type - numtype</h3>
+<ul>
+<li>i32 = 0x7F</li>
+<li>i64 = 0x7E</li>
+<li>f32 = 0x7D</li>
+<li>f64 = 0x7C</li>
+</ul>
+<h3 id="vector-type---vectype">Vector Type - vectype</h3>
+<ul>
+<li>v128 = 0x7B</li>
+</ul>
+<h3 id="reference-type---reftype">Reference Type - reftype</h3>
+<ul>
+<li>funcref = 0x70</li>
+<li>externref = 0x6F</li>
+</ul>
 <script src="../highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 <script>const stylesheet = document.documentElement.style;

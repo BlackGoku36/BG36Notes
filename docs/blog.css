@@ -149,9 +149,13 @@ details > summary{
     background-color: var(--theme-accent);
 }
 
+pre, code{
+    white-space: pre;
+    overflow-x: scroll;
+}
+
 pre code.hljs{
 	display:block;
-	overflow-x:auto;
 	padding: 1em;
 	font-size: var(--font-size-code);
 }
