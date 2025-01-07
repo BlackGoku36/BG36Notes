@@ -40,6 +40,12 @@ URJASVI SUTHAR
 <hr />
 <h1 id="webassembly-binary-format">WebAssembly Binary Format</h1>
 <p>! WIP !</p>
+<h2 id="values">Values</h2>
+<p>How different values such as bytes, ints and floats are encoded in
+this binary format.</p>
+<h3 id="bytes">Bytes</h3>
+<p>They are encoded as themeselves: - 0x00..0xFF = 0x00..0xFF</p>
+<h3 id="integers">Integers</h3>
 <blockquote>
 <p>All integers used for sizes and indexes in this binary formats are in
 unsigned LEB128 format.</p>

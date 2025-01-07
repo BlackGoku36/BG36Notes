@@ -2,6 +2,19 @@
 
 ! WIP !
 
+## Values
+
+How different values such as bytes, ints and floats are encoded in this binary format.
+
+### Bytes
+
+They are encoded as themeselves:
+- 0x00..0xFF = 0x00..0xFF
+
+### Integers
+
+
+
 > All integers used for sizes and indexes in this binary formats are in unsigned LEB128 format.
 
 ## Structure
