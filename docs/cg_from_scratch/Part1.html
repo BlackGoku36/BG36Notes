@@ -23,9 +23,6 @@
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="../blog.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
@@ -110,17 +107,17 @@ quickly pushed it to have vertex colours.</p>
 takes (no compiler optimizations):</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Timing (Range)</th>
 <th>AABB</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>58.598 s … 58.814 s</td>
 <td>No</td>
 </tr>
-<tr class="even">
+<tr>
 <td>503.9 ms … 545.4 ms</td>
 <td>Yes</td>
 </tr>
@@ -133,17 +130,17 @@ in the calculation. After removing them, I got (with AABB, without AABB
 is terribly slow):</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Timing (Range)</th>
 <th>Compiler Optimization</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>33.9 ms … 36.4 ms</td>
 <td>None</td>
 </tr>
-<tr class="even">
+<tr>
 <td>6.6 ms … 8.4 ms</td>
 <td>O2/O3</td>
 </tr>
@@ -238,7 +235,7 @@ function setTheme(){
 <script async src="//static.getclicky.com/101392041.js"></script>
 </div>
 <footer>
-© 2021-2024 Urjasvi Suthar
+© 2021-2025 Urjasvi Suthar
 </footer>
 </body>
 </html>
