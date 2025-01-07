@@ -251,11 +251,11 @@ Spot model (low-poly)
 
 <div display: flex>
 <video width="45%" controls>
-  <source src="../assets/cg_from_scratch_part2_dragon.mov" type="video/mp4">
+  <source src="../assets/cg_from_scratch_part2_dragon.mov" type="video/mp4"/>
 </video>
 
 <video width="45%" controls>
-  <source src="../assets/cg_from_scratch_part2_spot.mov" type="video/mp4">
+  <source src="../assets/cg_from_scratch_part2_spot.mov" type="video/mp4"/>
 </video>
 </div>
 
