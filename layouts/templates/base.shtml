@@ -11,6 +11,7 @@
     <script defer src="$site.asset('temml.min.js').link()"></script>
     <script defer src="$site.asset('render-mathtex.js').link()"></script>
     <!-- /mathtex -->
+    <script async src="//static.getclicky.com/101392041.js"></script>
     <super>
   </head>
   <body id="body">
