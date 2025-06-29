@@ -1,0 +1,16 @@
+<extend template="base.shtml">
+<head id="head">
+  <style>
+    #pfp {
+      display: block;
+      margin: auto;
+      border-radius: 50%;
+      width: 20%;
+      height: 20%;
+    }
+  </style>
+</head>
+<body id="body">
+  <!-- <h1 :text="$page.title"></h1> -->
+  <div class="post" :html="$page.content()"></div>
+</body>

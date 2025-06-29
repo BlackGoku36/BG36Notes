@@ -1,0 +1,18 @@
+---
+.title = "Blog",
+.date = @date("2025-06-29T00:00:00"),
+.author = "Urjasvi Suthar",
+.layout = "blog.shtml",
+.alternatives = [{ 
+    .name = "rss",
+    .layout = "blog.xml", 
+    .output = "index.xml",
+}],
+.draft = false,
+--- 
+
+Welcome to my blog! I write about topics that interest me :)
+
+You can also follow with [RSS feed]($link.alternative('rss')).
+
+[(Contact me if you wanna talk about what I wrote. If you prefer, we can exchange blows too >:) )]($text.attrs('small'))

@@ -1,0 +1,24 @@
+---
+.title = "Homepage",
+.date = @date("2025-06-29T00:00:00"),
+.author = "Urjasvi Suthar",
+.layout = "index.shtml",
+.draft = false,
+--- 
+
+---
+
+[]($image.siteAsset("pfp.png").id('pfp'))
+
+[Hi]($text.attrs('p-start')), I am Urjasvi Suthar (BlackGoku36) and currently a berozgaar. I like building things from scratch and enjoy System Programming and Computer Graphics.
+Other than coding, I like watching movies and thinking about forthcoming volatile multi-polar world.
+
+If you like whatever I do and want to talk about it, don't be shy to reach out to me :)
+
+---
+
+## Projects
+
+- [Khichu](https://github.com/BlackGoku36/Khichu) - An experimental programming language that targets WASM.
+
+- [ZigCPURasterizer](https://github.com/BlackGoku36/ZigCPURasterizer) - A CPU Rasterizer written in Zig.

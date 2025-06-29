@@ -1,0 +1,20 @@
+---
+.title = "Devlog - 2025",
+.date = @date("2025-06-29T00:00:00"),
+.author = "Urjasvi Suthar",
+.layout = "devlog.shtml",
+.draft = false,
+--- 
+[]($section.id('about'))
+## About this Devlog
+
+This devlog is hand-synced with my twitter account [@UrjasviS](https://twitter.com/@UrjasviS).
+
+You can [subscribe to this page via RSS]($link.page('devlog').alternative('rss')).
+
+This page lists entries for the current year, for past entries consult the [devlog archive](/devlog/).
+
+## [Hello!]($section.id("2025-06-29T00:00:00"))
+This is the first entry in this year's devlog created with [Zine](https://zine-ssg.io)!
+
+I don't have much to say right now :)

@@ -1,0 +1,51 @@
+---
+.title = "About",
+.date = @date("2025-06-29T00:00:00"),
+.author = "Urjasvi Suthar",
+.layout = "index.shtml",
+.draft = false,
+--- 
+
+## About Me
+
+I started coding sometime before 2018, beginning with simple websites in plain HTML and CSS, then creating Android apps in Xamarin, 
+and eventually shifting to game development by building silly prototypes in UE4 with blueprints.
+
+Everything changed in 2018 when I discovered the Haxe language and communities like Armory3D. That's when I decided I wanted to write 
+things myself rather than just use existing tools. I fell in love with computer graphics and its ability to create imaginative, 
+eye-candy worlds, which led me to pursue the deeper technical aspects of game development. Since then, I've gone deeper and deeper 
+into tech stacks, learning C, C++, and graphics APIs like OpenGL and Metal.
+
+When the "compiler boom" happened and everyone started creating "C/C++ killers," I got fascinated watching the technical discussions 
+unfold. Once I had enough knowledge, courage, and friends to work with, I started building my own language called "Khichu" (previously 
+known as "Undefined Language"—hahaha). I've been working on it on and off ever since, making progress in my free time whenever I can.
+
+I'm almost done with my Bachelor's in Computer Science from the Indian Institute of Information Technology, Sri City, India. Honestly, 
+I don't know exactly what I want to do after graduation, but I'd love to work with people who share similar interests and passions.
+
+> # [W.I.P.]($block)
+> A blender render here just because it feels empty without any images.
+
+## My Philosophy
+
+I believe people can write amazing software if they care enough about their craft and are willing to go beyond just "good enough"
+so users can have their lives a little bit easier.
+
+I don't think software have to be trade-off between end-user experience and developer experience. It is completely possible
+to write software that appease to both. When developers care about their craft, creating software that's fast and efficient becomes 
+easier than building something slow and bloated.
+
+Instead of having multiple digits of megabytes/gigabytes as file size and speed with units of seconds, it is completely possible
+to have softwares that are small in size and fast in speed, with milliseconds latency and lean file size. Instead of having confusing 
+UI/UX with some features hidden deep behind multiples menus, we can have softwares that works in tadem with human psychology. Simple 
+and intuitive UI/UX, doesn't mean fewer buttons, but smarter placements.
+
+I like writing software with fewer dependencies and building more things from scratch. This gives me the freedom to design software
+around the goals that I want to achieve, instead of being bound by some else design decisions. Not having gigantic dependecies when
+job can be done with fewer lines of code can result in faster and more efficient builds.
+
+Let's be honest, most of the dependecies are filled with bloat with frameworks and libraries whose creators did things just 
+because it was _easier_ that way.
+
+> # [W.I.P.]($block)
+> Same render but with a different angle, just because it feels empty without any images.
