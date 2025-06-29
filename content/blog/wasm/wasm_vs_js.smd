@@ -10,8 +10,6 @@ WebAssembly wasn't designed and created to replace Javascript, but rather comple
 
 ## What problem does Javascript have?
 
----
-
 The browser has to fetch javascript code from the server, than compile it just like any other language. Depending on how a particular browser implement it, javascript is either compiled to bytecode, machine code or just interpreted in old-school way. The browser has to do this on go, and it might have to compile/interpret same piece of code multiple time.
 
 1. **Download-time and Load-time latency:**
@@ -24,8 +22,6 @@ The browser has to fetch javascript code from the server, than compile it just l
 
 ## How does it solve those problems?
 
----
-
 To solve the above problem, WASM was introduced.
 
 1. **Download-time and load-time latency:**
@@ -37,14 +33,10 @@ To solve the above problem, WASM was introduced.
 
 ## Additional benefits
 
----
-
 - **Single Instruction Multiple Data (SIMD)**: WASM supports vector operations that are native to hardware. With this you can run calculations that requires doing same operations but on multiple data, which are typically used in image and signal processing.
 - **Multi-Threading**: Although not additional as javascript can do it with WebWorker API, you can enjoy low over-head with WASM.
 
 ## Limitations?
-
----
 
 1. **Performance**: Although many times WASM is faster than JS, there are times browser can compile JS to native code (by using technique called [Just-In-Time Compilation](https://en.wikipedia.org/wiki/Just-in-time_compilation)) and execute it. It wins when compilation overhead is lot less than the execution of the said code. Javascript engines such as JavascriptCore (WebKit, Safari) and V8 (Chromium, Chrome) are capable of doing this. This can change in coming year, as WASM is still relatively new technology and JS have been giving years of head start for optimization.
 2. **Javascript can't be eliminated entirely**: It is not possible to manipulate DOM's element directly from WASM, instead it is done through binding between JS and WASM. Also, just manipulating a button color (through WASM) doesn't incur any performance penalty, doing it repeatedly can become overhead.
