@@ -1,0 +1,51 @@
+---
+.title = "Undefined Language: Prequel",
+.date = @date("2025-07-04T00:00:00"),
+.author = "Urjasvi Suthar",
+.layout = "post.shtml",
+.draft = false,
+--- 
+
+I like to call it an "experimental compiler", because saying "toy compiler" doesn't sound as cool.
+
+I was bored but ambitious in 2nd year of my college, I wanted to do something about the low-level expect of computer science
+in India, I was tired of seeing web-dev, app-dev, AI/ML everywhere with no-one interested in writing any sort of low-level code.
+Any sort of low-level code, networking, compiler or even operating system. There was barely anyone who was interested in writing
+C code beyond circullum. Once the exams on C language was over, everyone threw it out of their brain and filled it with JS slop.
+Only people who used C++ were competitive programmer, which to me was the least interesting and even they didn't understand what
+they were even doing and did whatever dumbass on youtube told them to do (even that dumbass on youtube didn't know what they were
+upto --it worked, so just copy-pasted, no question asked).
+
+Maybe I thought I do something about it, I thought I start a organization, or group where like minded people researched and built 
+stuffs. Even if it like 2-3 people max, it atleast a start. After that maybe we could teach the masses about how amazing the low-level
+sub-field actually is. Even though it converged as college club a bit later, I tried to do that and thats where this project was 
+born. Entire period was hell back and forth, shit happened, lot of things I hoped for never emerged because of reasons only few 
+people knows. Still a bit salty about it.
+
+Anyway, the original group was named "Undefined Leap" because I hoped that the leap we made was so astounding that we couldn't not 
+define it (I realised now that irony died thousand deaths). Out of habit, we started using "Undefined" as prefix in name of all 
+project we created, which led us to naturally funny name for the language.
+
+The main idea for the language was that we will built it from ground-up ourselves. Everything, including code generation for multiple
+backends. And keep working on it until we had some sort of breakthrough that we could pride outselves in and showcase it to world.
+
+For language design, it was supposed to be statically-typed manually managed memory language that targeted a custom VM and in
+future x86_64 and RISC-V. With custom VM being register-based. That was is, nothing more, nothing less. We thought of actually
+defining language design as we go further down the implementation road (I know it stays true to its name).
+
+On implementation side, we wanted to build it from ground-up ourselves, including code-generation. Up until we had basic
+calculator, it was written in C and then I got tired of using C and switched to Zig. I thought that it was actually better to 
+target WASM, rather than do our own VM because there already enviroments that run WASM pretty well and if we target it, we will
+be able to run our language almost everywhere. So I made the switch there too.
+
+Even after the whole club/group schitk ended, I kept working on it on-off. I bashed my head every now and then, trying to make 
+sense of stuffs and actually implementing them. While trying to implementing something, I would have to re-write many part of 
+it because I didn't know what I was doing. I kept learning new things everytime I tried to code and I learnt a lot, lot more 
+than I would by just reading any compiler book. Finally I implemented 101 features like variable declaration/initialization, 
+loops, branching and function calls, outputing wasm and displaying it in browser's console. Probably none of that is big deal, 
+but I had fun.
+
+Unfortunately, by the time I had done that, I was almost out of college and into the world of unemployment. I tried working on
+different project hoping that something would happen. I also tried applying to companies hoping what I did earlier was enough.
+But nothing happened. I drifted here and there for quite sometimes without anything worthwhile. Since I still have time, I arrived 
+to conclusion that I should try again.
