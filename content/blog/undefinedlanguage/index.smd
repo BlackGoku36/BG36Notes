@@ -3,7 +3,7 @@
 .date = @date("2025-07-04T00:00:00"),
 .author = "Urjasvi Suthar",
 .layout = "post.shtml",
-.draft = false,
+.draft = true,
 --- 
 
 I like to call it an "experimental compiler", because saying "toy compiler" doesn't sound as cool.
