@@ -1,0 +1,145 @@
+---
+.title = "Undefined Language: Introduction",
+.date = @date("2025-07-05T00:00:00"),
+.author = "Urjasvi Suthar",
+.layout = "post.shtml",
+.draft = false,
+---
+
+Undefined Language started as a college project to learn about compiler technologies and take it as far as I 
+could. It was an ambitious project where I intended to write everything from scratch, including code 
+generation for multiple backends, and design the language as I go. This leads to it being true to its name 
+"Undefined Language". Though I do have some general plans for it at the moment: I want it to be easy to read, 
+nice to write, and ultimately something that doesn't get in anyone's way. 
+
+Technically, it's going to be a statically-typed language that compiles to WASM bytecode (for now, maybe 
+aarch64 for macOS later). Whether it's going to have manually managed memory or garbage collection, I'm still 
+not sure what I would go with—I like both of them. The final goal right now is to be able to render a 
+triangle using WASM/WebGPU in the browser. Whatever is required to get there, I will implement.
+
+## What I have right now
+
+- **Types:** Int, Float, Bool.
+
+- **Functions:** Normal function with paramter and single-value return.
+
+- **Loops:** While (I forgot to implement `break` and `continue` :p).
+
+- **Branching:** If/Else
+
+**Example code:**
+
+```
+fn main() void {
+    var x: int = 0;
+    while (x < 5) {
+        if (x > 2) {
+            printInt(x);
+        }
+        x = x + 1;
+    }
+}
+
+fn printInt(a: int) void {
+    print(a);
+}
+```
+
+**Outputs:**
+```
+3
+4
+```
+
+`fn main()` is the entry point of the program. `void` after it is the return type. Variables are declared 
+with `var` and initialized like that. Variables can be uninitialized (who knows what will happen if you 
+access them). The `while` loop and `if` statement are as you can identify, which is similar to any other 
+language. `fn printInt` is another function with an `a: int` parameter. It calls a `print` function which is 
+an imported JS function (it's hardcoded right now).
+
+Though I still need to implement:
+
+- **Types:** Struct, Enum, Array, String.
+
+- **Functions:** Foreign Function/Variable Interface, to interact with JS without any hardcoding.
+
+- **Loops:** For loop. Also `break` and `continue` of course.
+
+I'm giving myself a deadline to complete the WebGPU triangle demo before the end of the year.
+
+## Some Implementation Details
+
+Right now the whole compiler is split into 4 stages: Tokenizer, Parser, Analyzer, and Codegen. There's no 
+optimization pass right now, but I would love to eventually implement some. The tokenizer is bare simple—it 
+goes through each char, if it's single (like operators, braces, etc.) it outputs a token, if it's words it 
+matches against a list of accepted keywords and outputs tokens. The parser is recursive descent, which is 
+very simple to write and maintain unlike LALR, LR, etc. Though I am planning to update it to a Pratt parser 
+later when I have time. 
+
+During the parsing period, symbol tables are updated. These tables contain information like variables, 
+branches, loops, function calls, scopes, etc. and their type information. The parser outputs an AST, which 
+contains information about other nodes, indexes to symbol tables (if required), and source code information. 
+The AST is internally stored in a contiguous array, with pointers to other nodes as integer indexes. The 
+analyzer traverses through the AST and does type checking by looking up the symbol tables as much as it can. 
+Codegen outputs WASM binary—it also goes through the same AST and looks up symbol tables to decide what to 
+output. There's no intermediate representation (IR) in between. Lastly, it also pretty prints information 
+from various passes into the terminal, so we can see what's happening.
+
+## Some problems I faced
+
+**Printing error messages:** For accurate error messages, we need to know not only what happened but also 
+where it happened. For that we need to store source code information somewhere, and keep it alive for 
+various stages of the compiler. I thought that I couldn't store the entire string in the node itself, because 
+then it would become too big, so I ended up storing start and end indexes of the string in the source code 
+and line numbers. But then another problem—what do you do if the error spans two lines? I haven't gotten 
+around to doing that yet.
+
+**Storing type information:** I spent a considerable amount of time thinking where I should put type 
+information that made sense. Also, what type of data structure should it be? I ended up with tables, more 
+tables, and even more tables. Then I understood why someone on the internet said that a compiler is 
+basically databases.
+
+**Catching errors:** How should I catch errors? Is traversing the tree enough? How do I make sure it doesn't 
+catch false positives and negatives? I haven't solved it yet.
+
+## Compared to others
+
+What I have noticed is that none of the other learning projects do all of the following together:
+
+- Segregated data types like array, struct, etc.
+
+- Do anything useful outside of just running simple calculation code.
+
+- Use multiple stages.
+
+- Good error handling and messages.
+
+- In-house codegen.
+
+- WASM backend.
+
+Although it isn't strictly better than others right now, I aim to reach there.
+
+## Next steps
+
+To build up momentum, I will start with easier tasks like `break`/`continue`, `for` loop, and then go to more 
+difficult ones, until I have all the prerequisites necessary to build the demo.
+
+## Wanna try it?
+
+The repository is public at [GitHub](https://github.com/BlackGoku36/UndefinedLanguage), you will find the 
+entire source code and instructions on how to compile it.
+I am not up for contributions, but I am up for talking about compilers :).
+
+---
+
+## Why WASM and WebGPU?
+
+Original plan was to output it to our custom VM, but since it was too much of work to not only design but 
+also implement it by myself, it made sense to use existing ones. WebAssembly turned out to be enticing choice 
+because it allow us to run our code on web and in other enviroments such as desktop/mobile, embedded, etc 
+with WASI. Which in theory let my code run everywhere.
+
+I choosed WebGPU, because I have bit of experience with it and also it is new API that gives much better 
+access to underlying GPU compared to other existing APIs like WebGL, making it more suitable for graphics 
+and computationally-heavy tasks. At the end of day, using WebGL instead shouldn't require much more efforts.
