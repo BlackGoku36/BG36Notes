@@ -14,6 +14,9 @@ You can [subscribe to this page via RSS]($link.page('devlog').alternative('rss')
 
 This page lists entries for the current year, for past entries consult the [devlog archive](/devlog/).
 
+## [Undefined Language: DVL 1]($section.id("2025-07-07T22:17:00"))
+Implemented the break/continue stmt for while loop, that I forgot to do earlier. Next up, Array or String.
+
 ## [Undefined Language: Intro]($section.id("2025-07-06T00:00:00"))
 Wrote blog post on introducting compiler project I am working on [here](https://blackgoku36.github.io/BG36Notes/blog/undefinedlanguage/intro/).
 
