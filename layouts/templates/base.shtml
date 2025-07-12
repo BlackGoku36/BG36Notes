@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1">
     <title :text="$site.title"></title>
+    <link type="text/css" rel="stylesheet" href="$site.asset('prism.css').link()">
     <link type="text/css" rel="stylesheet" href="$site.asset('style.css').link()">
     <link type="text/css" rel="stylesheet" href="$site.asset('highlight.css').link()">
     <!-- mathtex -->
@@ -11,6 +12,7 @@
     <script defer src="$site.asset('temml.min.js').link()"></script>
     <script defer src="$site.asset('render-mathtex.js').link()"></script>
     <!-- /mathtex -->
+    <script defer src="$site.asset('prism.js').link()"></script>
     <script async src="//static.getclicky.com/101392041.js"></script>
     <super>
   </head>

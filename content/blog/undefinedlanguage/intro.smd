@@ -106,7 +106,7 @@ catch false positives and negatives? I haven't solved it yet.
 
 What I have noticed is that none of the other learning projects do all of the following together:
 
-- Segregated data types like array, struct, etc.
+- Aggregated data types like array, struct, etc.
 
 - Do anything useful outside of just running simple calculation code.
 

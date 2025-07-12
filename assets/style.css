@@ -1,9 +1,35 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111;
+    --text: #ccc;
+    --text-bold: #fff;
+    --text-heading: #ddd;
+    --link: #eee;
+    --link-hover: #ccc;
+    --accent-1: #444;
+    --accent-2: #282828;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f0f0f0;
+    --text: #222;
+    --text-bold: #111;
+    --text-heading: #333;
+    --link: #111;
+    --link-hover: #484848;
+    --accent-2: #ccc;
+    --accent-1: #333;
+  }
+}
+
 h1,
 h2,
 h3,
 h4,
 h5 {
-  color: #ddd;
+  color: var(--text-heading);
   font-family: "Georgia", sans-serif;
 }
 
@@ -13,25 +39,25 @@ h2, h3, h4, h5 {
 
 b,
 strong {
-  color: #fff;
+  color: var(--text-bold);
 }
 
 a {
-  color: #eee;
+  color: var(--link);
 }
 
 a:hover {
-	color: #ccc;
+	color: var(--link-hover);
 }
 
 html {
-  color: #ccc;
+  color: var(--text);
   font-family: "Georgia", serif;
   font-size: 1.2em;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #111;
+  background-color: var(--bg);
 }
 
 body {
@@ -39,7 +65,7 @@ body {
   padding: 15px;
   display: flex;
   flex-direction: column;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 p {
@@ -53,12 +79,12 @@ p {
 
 table {
   border-collapse: collapse;
-  border: 1px solid #444;
+  border: 1px solid var(--accent-1);
 }
 
 th,
 td {
-  border: 1px solid #444;
+  border: 1px solid var(--accent-1);
   padding: 10px;
 }
 
@@ -87,20 +113,20 @@ nav {
 }
 
 blockquote {
-  border: 1px dotted white;
+  border: 2px dashed var(--accent-2);
   padding: 5px 15px;
-  margin: 10px 10px;
-  text-align: center;
+  margin: 0;
+  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .block {
-  border: 1px dotted white;
-  padding: 5px 15px;
-  margin: 0 10px;
-  text-align: center;
+  border: 2px dashed white;
+  /* padding: 5px 15px; */
+  /* margin: 0 10px; */
+  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -110,6 +136,26 @@ blockquote {
   font-size: 1em;
   text-align: center;
   margin-bottom: 0;
+  color: var(--text-heading);
+}
+
+.note{
+  border-color: var(--accent-2);
+}
+
+.note h1{
+  border-bottom: 2px dashed var(--accent-2);
+  border-color: var(--accent-2);
+  background-color: var(--accent-2);
+  margin: 0 !important;
+  text-align: left;
+  padding-left: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.block p {
+  padding-left: 15px;
 }
 
 .small {
@@ -133,9 +179,15 @@ footer hr {
   width: 100%;
 }
 
+pre {
+  border-top: 2px dashed var(--accent-1);
+  border-bottom: 2px dashed var(--accent-1);
+  padding: 10px 5px;
+}
+
 pre, code{
-    white-space: pre;
-    overflow-x: scroll;
+  white-space: pre;
+  overflow-x: scroll;
 }
 
 pre::-webkit-scrollbar {
@@ -144,11 +196,11 @@ pre::-webkit-scrollbar {
 }
 
 pre::-webkit-scrollbar-thumb {
-  background-color: #444;
+  background-color: var(--accent-1);
 }
 
 pre::-webkit-scrollbar-track {
-  background-color: #111;
+  background-color: var(--bg);
 }
 
 details summary {
