@@ -2,7 +2,7 @@
 <html>
   <head id="head">
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title :text="$site.title"></title>
     <link type="text/css" rel="stylesheet" href="$site.asset('prism.css').link()">
     <link type="text/css" rel="stylesheet" href="$site.asset('style.css').link()">

@@ -61,11 +61,13 @@ html {
 }
 
 body {
-  width: 800px;
   padding: 15px;
   display: flex;
   flex-direction: column;
   line-height: 1.55;
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
 }
 
 p {
