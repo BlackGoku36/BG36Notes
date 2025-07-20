@@ -1,0 +1,39 @@
+<extend template="base.shtml">
+<head id="head">
+  <style>
+    #prev-next {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     margin-top: 40px;
+    }
+
+    figure {
+      align-self: center;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .post {
+      display:flex;
+      flex-direction: column;
+    }
+
+    #start-center {
+      display: flex;
+      justify-content: center;
+    }
+
+    video {
+      width: 360px;
+    }
+    iframe {
+        width: 100%;
+        height: 800px;
+    }
+  </style>
+</head>
+<body id="body">
+  <h1 :text="$page.title"></h1>
+  <iframe src="$site.asset($page.title.suffix('.pdf')).link().suffix('#zoom=FitW')"></iframe>
+</body>

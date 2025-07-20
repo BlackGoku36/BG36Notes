@@ -1,11 +1,7 @@
 ---
-.title = "The Horse-Son and The Fox-Son",
+.title = "The Foal And The Cub",
 .date = @date("2025-07-13T00:00:00"),
 .author = "Urjasvi Suthar",
-.layout = "post.shtml",
+.layout = "story.shtml",
 .draft = false,
 --- 
-
-```=html
-<iframe src="https://github.com/BlackGoku36/BG36Notes/tree/master/assets/report.pdf" width="800" height="600"></iframe>
-```
