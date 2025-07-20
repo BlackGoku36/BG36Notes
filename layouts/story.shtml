@@ -36,4 +36,6 @@
 <body id="body">
   <h1 :text="$page.title"></h1>
   <iframe src="$site.asset($page.title.suffix('.pdf')).link().suffix('#zoom=FitW')"></iframe>
+  <br>
+  If you are on mobile, you can download the pdf :)
 </body>
