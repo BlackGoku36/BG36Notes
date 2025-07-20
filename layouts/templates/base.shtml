@@ -23,6 +23,8 @@
        &nbsp; | &nbsp;
       <a href="$site.page('about').link()">About</a>
        &nbsp; | &nbsp;
+      <a href="$site.page('stories').link()">Short Stories</a>
+       &nbsp; | &nbsp;
       <a href="$site.page('blog').link()">Blog</a>
       <ctx :if="$site.page('devlog').subpages().first?()">
          &nbsp; | &nbsp;

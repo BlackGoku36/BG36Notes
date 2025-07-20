@@ -1,0 +1,13 @@
+---
+.title = "Webassembly: Excavation II",
+.date = @date("2025-07-13T00:00:00"),
+.author = "Urjasvi Suthar",
+.layout = "post.shtml",
+.draft = true,
+--- 
+
+In the previous post, we saw how to write simple code in `.wat` format, compile it, run it, look at 
+the underlying structure and decode the `.wasm` binary format.
+
+In this post we will do just that again, but this time we will move onto writing more complicated
+code with conditionals, branching and loops. We will look underneath in the same way.
