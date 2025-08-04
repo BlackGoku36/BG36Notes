@@ -10,10 +10,10 @@
 
 []($image.siteAsset("pfp.png").id('pfp'))
 
-[Hi]($text.attrs('p-start')), I am Urjasvi Suthar (BlackGoku36) and currently a berozgaar. I like building things from scratch and enjoy System Programming and Computer Graphics.
-Other than coding, I like watching movies and thinking about forthcoming volatile multi-polar world.
+[Hi]($text.attrs('p-start')), I am Urjasvi Suthar (BlackGoku36). I like to figure out how things works and then build them from scratch. My main interests are in
+low-level programming and computer graphics. Currently I am dipping my toes in embedded programming.
 
-If you like whatever I do and want to talk about it, don't be shy to reach out to me :)
+Other than coding, I like to write short-stories and think about forthcoming volatile multi-polar world. 
 
 ---
 
