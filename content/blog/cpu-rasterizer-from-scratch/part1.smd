@@ -4,11 +4,17 @@
 .author = "Urjasvi Suthar",
 .layout = "post.shtml",
 .draft = false,
---- 
+---
+
+---
+
+[**! New Site !**](https://blackgoku36.github.io/website/articles/cpu-rasterizer-from-scratch-part1.html)
+
+---
 
 > Any sufficiently advanced technology is indistinguishable from magic - Arthur C. Clarke
 
-I have been doing computer graphics for quite some time, so I am not a **total** beginner at it. The main problem was that I skipped some theoretical parts and didn't try to understand them (admittedly, mathematics). Instead, I jumped here and there to produce pretty-looking renders. So I decided to start computer graphics from scratch, where the goal is to try to learn and understand as much as possible. So, I thought writing a CPU rasterizer was a way to achieve it. As it will help me learn and understand: 
+I have been doing computer graphics for quite some time, so I am not a **total** beginner at it. The main problem was that I skipped some theoretical parts and didn't try to understand them (admittedly, mathematics). Instead, I jumped here and there to produce pretty-looking renders. So I decided to start computer graphics from scratch, where the goal is to try to learn and understand as much as possible. So, I thought writing a CPU rasterizer was a way to achieve it. As it will help me learn and understand:
 
 - How APIs like OpenGL, Metal, etc works underneath.
 - How to structure/architect renderer properly, so that it efficient.

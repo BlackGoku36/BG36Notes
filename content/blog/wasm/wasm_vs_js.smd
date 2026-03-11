@@ -4,7 +4,13 @@
 .author = "Urjasvi Suthar",
 .layout = "post.shtml",
 .draft = false,
---- 
+---
+
+---
+
+[**! New Site !**](https://blackgoku36.github.io/website/articles/webassembly-wasm-vs-javascript.html)
+
+---
 
 WebAssembly wasn't designed and created to replace JavaScript, but rather complement it and make the two of them work together in tandem. As we will see, some parts of code should see benefits from using WASM when compared to JS, but some parts would rather be in JS itself. We will discuss what problems JavaScript has, how WebAssembly solves them, what WebAssembly's limitations and benefits are over JavaScript.
 

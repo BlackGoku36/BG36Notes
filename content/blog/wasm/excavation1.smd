@@ -4,15 +4,20 @@
 .author = "Urjasvi Suthar",
 .layout = "post.shtml",
 .draft = false,
---- 
+---
+---
 
-Let's dive into the world of WebAssembly and try to understand how it actually works. Unlike typical 
+[**! New Site !**](https://blackgoku36.github.io/website/articles/webassembly-excavation-part1.html)
+
+---
+
+Let's dive into the world of WebAssembly and try to understand how it actually works. Unlike typical
 tutorials, we aren't going to learn "how to use it", but "how does it work" in technical detail.
 If you want to know how to use it, there are plenty of tutorials out there teaching you that, also it
 is pretty trivial.
 
-WebAssembly (WASM) is a stack-based binary instruction format designed to be portable, size-/load-time-efficient 
-and performant, all of which are criteria for good web technology—no one likes it when it slow, bloated 
+WebAssembly (WASM) is a stack-based binary instruction format designed to be portable, size-/load-time-efficient
+and performant, all of which are criteria for good web technology—no one likes it when it slow, bloated
 and runs only on one browser.
 
 ># [Note]($block.attrs('note'))
@@ -20,7 +25,7 @@ and runs only on one browser.
 
 Instead of jumping straight to reading the WASM binary file's 0s and 1s, we will start by writing
 code in it's text format `WAT` (`.wat` extension). We will go from basic `.wat` code that does nothing
-to exploring different features of WASM. After that, we will dive deeper and check out the 
+to exploring different features of WASM. After that, we will dive deeper and check out the
 underlying structure and then figure out the 0s and 1s of the binary file.
 
 We will use WebAssembly Binary ToolKit (WABT) suite of tools to compile, validate and de-sugar `.wasm`
@@ -71,13 +76,13 @@ Now let's do simple arithmetic, say we take one integer, multiply it by 10 and r
 ```
 
 We declare and define function with name `mult`, `a` parameter of type `i32` and the return type also being `i32`. Another thing,
-it export the function with name "mult" so we can use it from JS. 
+it export the function with name "mult" so we can use it from JS.
 
 ># [Note]($block.attrs('note'))
 > `$a` and `$mult` are called identifiers, there are purely for documenting purpose. But WASM, after compiling
 > discard the $identifiers and uses integer indices instead.
 
-Now, compilation should be successfull, but lets run it. We will create a simple html with JS script 
+Now, compilation should be successfull, but lets run it. We will create a simple html with JS script
 that load and instantiate WASM module.
 
 
@@ -98,12 +103,12 @@ that load and instantiate WASM module.
 </html>
 ```
 
-Here, we fetch the Wasm file, instantiate it, and get the resulting module and run our `mult` 
-function. You should see `50` in your browser console. 
+Here, we fetch the Wasm file, instantiate it, and get the resulting module and run our `mult`
+function. You should see `50` in your browser console.
 
 That's WASM 101, but let explore a bit more before diving deeper.
 
-Just exporting function isn't any fun, let's see what happens when we want to run WASM like a 
+Just exporting function isn't any fun, let's see what happens when we want to run WASM like a
 standalone program.
 
 ```=html
@@ -126,17 +131,17 @@ standalone program.
 )
 </code></pre>
 ```
-To define a function that is entry point, or a function that starts on module being initiated (like 
-compiled languages), we define it as `(start <function id>)`. Here, we define our new main function 
-as the start function. The mult function is called with `call $mult`, also the `$mult` function 
-doesn't get exported now. If you noticed we also added `drop` instruction after the call. The `drop` 
-instruction drops a single value (top-most) from the stack, this is because an [start function shouldn't 
+To define a function that is entry point, or a function that starts on module being initiated (like
+compiled languages), we define it as `(start <function id>)`. Here, we define our new main function
+as the start function. The mult function is called with `call $mult`, also the `$mult` function
+doesn't get exported now. If you noticed we also added `drop` instruction after the call. The `drop`
+instruction drops a single value (top-most) from the stack, this is because an [start function shouldn't
 return anything](https://webassembly.github.io/spec/core/valid/modules.html#start-function).
 
-You can run this, but nothing will show up on browser console. So, now we will import a print 
+You can run this, but nothing will show up on browser console. So, now we will import a print
 function to write to console.
 
-We will introduce import object, that imports the functions we want and pass it to our 
+We will introduce import object, that imports the functions we want and pass it to our
 `instantiateStreaming` function. Like this:
 
 ```=html
@@ -148,8 +153,8 @@ WebAssembly.instantiateStreaming(fetch("file3.wasm"), importObject);
 </code></pre>
 ```
 
-WASM has two level namespace, that is `std` is module and `print` is function. Since `console.log` 
-accept any type, we can just pass whatever type we want to, whether it be `i32/f32/etc`, but only 
+WASM has two level namespace, that is `std` is module and `print` is function. Since `console.log`
+accept any type, we can just pass whatever type we want to, whether it be `i32/f32/etc`, but only
 one argument. You can add more if you want. In our `.wat` file
 
 ```=html
@@ -174,9 +179,9 @@ one argument. You can add more if you want. In our `.wat` file
 </code></pre>
 ```
 
-We import func with the same 2-level namespace, but here we will have to define the type of parameter. 
-Though, if you want to import same function but for different type, you can duplicate the line, but 
-have different function identifier and parameter type. If you run it now, you should see `40` appears 
+We import func with the same 2-level namespace, but here we will have to define the type of parameter.
+Though, if you want to import same function but for different type, you can duplicate the line, but
+have different function identifier and parameter type. If you run it now, you should see `40` appears
 in your browser console!
 
 ## Sweetener'nt it
@@ -184,7 +189,7 @@ in your browser console!
 Its feels like we have written enough `.wat` code. Its now a time to grab a shovel and start digging. Run:
 
 ```bash
-# wat-desugar reformat the .wat files without any syntatic sugars, 
+# wat-desugar reformat the .wat files without any syntatic sugars,
 # revealing abstracted structures.
 wat-desugar file3.wat
 ```
@@ -211,7 +216,7 @@ It will output:
 </code></pre>
 ```
 
-You will immediately notice that everything is same, except for the last three lines. That is how 
+You will immediately notice that everything is same, except for the last three lines. That is how
 WASM defines function signatures.
 
 ```=html
@@ -221,8 +226,8 @@ WASM defines function signatures.
 ```
 
 This define function signature with its index defined as `0` and has single parameter of type `i32`.
-These indices share same indices space across imports + local functions, imports indices comes first 
-and then local function indices. That is, if you check from top-to-botton of all functions declared, 
+These indices share same indices space across imports + local functions, imports indices comes first
+and then local function indices. That is, if you check from top-to-botton of all functions declared,
 you can see our import function declaration comes first—with same signature.
 
 Now let see our `file2.wat` desugared.
@@ -248,9 +253,9 @@ is un-inlined. It also links to the function `$mult`.
 Now lets dig even deeper and see the actual structure of `.wasm` file as binary. To see that, run:
 
 ```bash
-# wasm-validate as name implies validates the Wasm file by checking if 
-# the binary structure follows rules laid-out in specification or not. 
-# Since we are using output from wat2wasm, it is already validated there. 
+# wasm-validate as name implies validates the Wasm file by checking if
+# the binary structure follows rules laid-out in specification or not.
+# Since we are using output from wat2wasm, it is already validated there.
 # What we want is the WASM structure its creates while validating.
 wasm-validate file3.wasm -v
 ```
@@ -277,8 +282,8 @@ BeginModule(version: 1)
 EndModule
 ```
 
-This is how WASM code is structured in its binary format. The module is splitted into multiple 
-sections, including custom section that totals up to 12. Each of these sections are optional and 
+This is how WASM code is structured in its binary format. The module is splitted into multiple
+sections, including custom section that totals up to 12. Each of these sections are optional and
 must be in following order [(execption is custom section, which can be anywhere)](https://webassembly.github.io/spec/core/binary/modules.html#binary-module).
 
 | Section ID | Section Name         |
@@ -309,7 +314,7 @@ BeginModule(version: 1)
 EndModule
 ```
 
-Obviously, these is the over-arching module, the outer most structure. It shows that the version of 
+Obviously, these is the over-arching module, the outer most structure. It shows that the version of
 our Wasm file is 1.
 
 ### Structure: Type Section
@@ -323,11 +328,11 @@ BeginTypeSection(13)
 EndTypeSection
 ```
 
-This is the type section which defines function signature of all the functions defined/used in our 
-code. There are three of them, `main`, `mult` and `std.print`. First (with index 0, `main`) take no 
-parameter and returns nothing. Second (with index 1, `mult`) takes i32 and produce i32. Third (with 
-index 2 `std.print`) takes i32 but produce nothing. The indices just point to their own position in 
-the section. 
+This is the type section which defines function signature of all the functions defined/used in our
+code. There are three of them, `main`, `mult` and `std.print`. First (with index 0, `main`) take no
+parameter and returns nothing. Second (with index 1, `mult`) takes i32 and produce i32. Third (with
+index 2 `std.print`) takes i32 but produce nothing. The indices just point to their own position in
+the section.
 
 Functions defined in `Import/Export Section` and `Function Section` must point to this signature.
 
@@ -341,11 +346,11 @@ BeginImportSection(13)
 EndImportSection
 ```
 
-This section defines all the things that is imported—functions, memories, tables, etc. There is only 
-one import. Its index is 0, type is function and `module` and `field`corrsponds to the two-level 
-namespace. The `ImportFunc` defines additional details, `import_index` is the same index as the 
-import, `func_index` is the index that `call` instructions will refer to, and `sig_index` is the index 
-into signature defined in the `Type Section`. Like we had seen earlier, this `func_index` is in unified 
+This section defines all the things that is imported—functions, memories, tables, etc. There is only
+one import. Its index is 0, type is function and `module` and `field`corrsponds to the two-level
+namespace. The `ImportFunc` defines additional details, `import_index` is the same index as the
+import, `func_index` is the index that `call` instructions will refer to, and `sig_index` is the index
+into signature defined in the `Type Section`. Like we had seen earlier, this `func_index` is in unified
 index space where imports comes first and then local function.
 
 ### Structure: Function Section
@@ -357,8 +362,8 @@ BeginFunctionSection(3)
   OnFunction(index: 2, sig_index: 1)
 EndFunctionSection
 ```
-This section defines all the local functions. There are two of them, `main` and `mult`. The `index` 
-is the index the that `call` instruction will refer to, and `sig_index` that will index into the 
+This section defines all the local functions. There are two of them, `main` and `mult`. The `index`
+is the index the that `call` instruction will refer to, and `sig_index` that will index into the
 signature defined in `Type Section`.
 
 ### Structure: Start Section
@@ -396,23 +401,23 @@ BeginCodeSection(19)
   EndCodeSection
 ```
 
-This section contains the actual instructions that WASM will run. It contains `Function Body`, which 
-contains local variable (`Local Declarations`) and instructions (`Exprs`). There are two function 
-bodies, with index pointing to `Function Section`. Each of them have no local variables, and 
-contains multiple instructions. Note how those `OnCallExpr` points to elements in`Function Section` 
+This section contains the actual instructions that WASM will run. It contains `Function Body`, which
+contains local variable (`Local Declarations`) and instructions (`Exprs`). There are two function
+bodies, with index pointing to `Function Section`. Each of them have no local variables, and
+contains multiple instructions. Note how those `OnCallExpr` points to elements in`Function Section`
 and `Import Section`.
 
 ## Decoding The Binary Format
 
 Depending on who you are, you may care about the actual bits and bytes of the format. If you care
 about integrating WASM in your system, whether they may be application like browser, as plugin
-system or even embedded program, than knowing the binary format is very important. Aside from that, 
+system or even embedded program, than knowing the binary format is very important. Aside from that,
 it is very interesting to see how things are encoded.
 
-The typical binary structure of a sections is in format of: `Id Size Content`. Where `Id` is 
-one-byte `Section ID` from table we saw earlier, `Size` is size of `Content` in bytes, and `Content` 
-is whatever actual content the section holds. Another structure we see a lot of times is `Vec`, 
-which is list/array of elements. `Vec` structure is as `Len Elem1 Elem2..ElemLen`, `Len` is number 
+The typical binary structure of a sections is in format of: `Id Size Content`. Where `Id` is
+one-byte `Section ID` from table we saw earlier, `Size` is size of `Content` in bytes, and `Content`
+is whatever actual content the section holds. Another structure we see a lot of times is `Vec`,
+which is list/array of elements. `Vec` structure is as `Len Elem1 Elem2..ElemLen`, `Len` is number
 of elements present in the array.
 
 For example:
@@ -509,11 +514,11 @@ Read more about [Export Section](https://webassembly.github.io/spec/core/binary/
 - Byte 11 (0x0F): `return`.
 - Byte 12 (0x0B): `end`.
 
-Read more about [Code Section](https://webassembly.github.io/spec/core/binary/modules.html#code-section) 
+Read more about [Code Section](https://webassembly.github.io/spec/core/binary/modules.html#code-section)
 and [OpCodes](https://webassembly.github.io/spec/core/binary/instructions.html#binary-expr).
 
 ># [Note]($block.attrs('note'))
-> All integers are encoded as [Leb128](https://en.wikipedia.org/wiki/LEB128) variable-length 
+> All integers are encoded as [Leb128](https://en.wikipedia.org/wiki/LEB128) variable-length
 > integer encoding. [Read more](https://webassembly.github.io/spec/core/binary/values.html#binary-int)
 
 ## Conclusion
@@ -524,9 +529,9 @@ able to better understand where the problem might lies when any bugs shows up.
 
 > One important thing I noticed while writing this document is that there isn't any simple step-by-step
 > evaluation engine—or atleast in the visible public. This would prevent anyone who want to learn
-> from being able to see how program flow from one instruction to another and how the stack (among 
+> from being able to see how program flow from one instruction to another and how the stack (among
 > other thing) changes to fully internalize WASM behaviour. WABT is excellent suite of tools which
-> is very easy to download and run. An runtime (sharing the same philosophy) that opens up the inner 
+> is very easy to download and run. An runtime (sharing the same philosophy) that opens up the inner
 > machinery would be amazing.
 
 ## Further Reading / Homework

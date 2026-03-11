@@ -4,7 +4,13 @@
 .author = "Urjasvi Suthar",
 .layout = "post.shtml",
 .draft = false,
---- 
+---
+
+---
+
+[**! New Site !**](https://blackgoku36.github.io/website/articles/webassembly-introduction.html)
+
+---
 
 In short, WebAssembly is a binary instruction format for a stack-based VM. To understand it better, we will talk a little bit more about what a `Binary Instruction Format` means and what a `Stack-based VM` means.
 
@@ -14,8 +20,8 @@ Before WASM, [asm.js](https://en.wikipedia.org/wiki/Asm.js) existed that compile
 
 > # [What is Garbage Collection]($block.collapsible(false))
 > Basically garbage means allocated memory that isn't used anymore, and collection means de-allocating this not-used-anymore memory.
-> In manual memory management languages, you allocate and deallocate memory by yourself. But in Garbage Collected languages, the 
-> language does it for you. How GC does it and when depends upon the implemented technique, you wouldn't want GC to do its work at inconvenient 
+> In manual memory management languages, you allocate and deallocate memory by yourself. But in Garbage Collected languages, the
+> language does it for you. How GC does it and when depends upon the implemented technique, you wouldn't want GC to do its work at inconvenient
 > times in inconvenient ways.
 
 ## Binary Instruction Format

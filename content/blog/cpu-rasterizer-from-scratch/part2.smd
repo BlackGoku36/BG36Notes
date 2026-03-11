@@ -4,7 +4,13 @@
 .author = "Urjasvi Suthar",
 .layout = "post.shtml",
 .draft = false,
---- 
+---
+
+---
+
+[**! New Site !**](https://blackgoku36.github.io/website/articles/cpu-rasterizer-from-scratch-part2.html)
+
+---
 
 ## Zig
 
@@ -165,7 +171,7 @@ This is pretty POG (at-least to me), considering I said this in last blog.
 
 ### Optimizing the edge function
 
-Improved the edge function from using 2 mults and 5 subs to simple addition as described in Scratchapixel's [Optimizin the edge function](https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-practical-implementation). 
+Improved the edge function from using 2 mults and 5 subs to simple addition as described in Scratchapixel's [Optimizin the edge function](https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-practical-implementation).
 We get about `1.2x` improvement (spot model). But for high poly model (dragon model), we only see about `1.08x` improvement. So I don't know if it really an improvement, and if it worth having extra complexity. The problem here is that I can't properly measure improvement because I haven't written a proper `.obj` parser, and so I can't load scenes and can only do a single object test.
 
 > **Note to myself**: Write proper .obj parser and load scene instead of single object. And also implement costy shading features to properly measure optimizations.
